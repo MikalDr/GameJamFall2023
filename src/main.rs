@@ -2,6 +2,8 @@ use bevy::prelude::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 
+mod game;
+
 fn main() {
     App::new()
         .add_plugins(
