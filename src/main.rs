@@ -1,8 +1,10 @@
 use bevy::prelude::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
+use game::level_controller::LevelControllerPlugin;
 
 mod game;
+mod utils;
 
 fn main() {
     App::new()
@@ -10,8 +12,10 @@ fn main() {
             (
                 DefaultPlugins,
                 LdtkPlugin,
+                LevelControllerPlugin
             )
         )
+        .add_systems(Startup, setup_graphics)
         .run();
 }
 
