@@ -24,6 +24,10 @@ fn main() {
         .run();
 }
 
+fn setup_graphics(mut cmd: Commands) {
+    cmd.spawn(Camera2dBundle::default());
+}
+
 #[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub enum AppState {
     #[default]
