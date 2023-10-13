@@ -5,6 +5,7 @@ pub mod player;
 pub struct GamePlugin;
 pub mod level_controller;
 pub mod level_systems;
+pub mod level_components;
 
 /*
 impl Plugin for GamePlugin {
