@@ -3,6 +3,7 @@ use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 use game::level_controller::LevelControllerPlugin;
+use main_menu::MainMenuPlugin;
 
 mod game;
 mod main_menu;
@@ -16,7 +17,8 @@ fn main() {
             (
                 DefaultPlugins,
                 LdtkPlugin,
-                LevelControllerPlugin
+                MainMenuPlugin,
+                //LevelControllerPlugin
             )
         )
         .add_state::<AppState>()
