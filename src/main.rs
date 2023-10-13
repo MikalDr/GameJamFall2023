@@ -4,6 +4,9 @@ use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 
 mod main_menu;
+mod game;
+
+
 
 fn main() {
     App::new()
