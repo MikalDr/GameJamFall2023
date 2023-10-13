@@ -3,6 +3,8 @@ use bevy::prelude::*;
 mod systems;
 pub mod player;
 pub struct GamePlugin;
+pub mod level_controller;
+pub mod level_systems;
 
 /*
 impl Plugin for GamePlugin {
