@@ -3,9 +3,8 @@ use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 
-mod main_menu;
 mod game;
-
+mod main_menu;
 
 
 fn main() {
@@ -15,8 +14,8 @@ fn main() {
                 DefaultPlugins,
                 LdtkPlugin,
             )
-        .add_state::<AppState>()
         )
+        .add_state::<AppState>()
         .run();
 }
 
