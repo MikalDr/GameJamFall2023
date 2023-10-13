@@ -1,10 +1,14 @@
 use bevy::prelude::*;
+use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 use game::level_controller::LevelControllerPlugin;
 
+mod main_menu;
 mod game;
 mod utils;
+
+
 
 fn main() {
     App::new()
@@ -14,32 +18,16 @@ fn main() {
                 LdtkPlugin,
                 LevelControllerPlugin
             )
+        .add_state::<AppState>()
         )
         .add_systems(Startup, setup_graphics)
         .run();
 }
 
-fn setup_graphics(mut commands: Commands) {
-    // Add a camera so we can see the debug-render.
-    commands.spawn(Camera2dBundle::default());
-}
-
-fn setup_physics(mut commands: Commands) {
-    /* Create the ground. */
-    commands
-        .spawn(Collider::cuboid(500.0, 50.0))
-        .insert(TransformBundle::from(Transform::from_xyz(0.0, -100.0, 0.0)));
-    /* Create the bouncing ball. */
-    commands
-        .spawn(RigidBody::Dynamic)
-        .insert(Collider::ball(50.0))
-        .insert(Restitution::coefficient(0.7))
-        .insert(TransformBundle::from(Transform::from_xyz(0.0, 400.0, 0.0)));
-
-}
-
-fn print_ball_altitude(positions: Query<&Transform, With<RigidBody>>) {
-    for transform in positions.iter() {
-        println!("Ball altitude: {}", transform.translation.y);
-    }
+#[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
+pub enum AppState {
+    #[default]
+    MainMenu,
+    Game,
+    GameOver,
 }
