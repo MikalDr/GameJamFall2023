@@ -19,27 +19,69 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                     flex_direction: FlexDirection::Column,
                     justify_content: JustifyContent::Center,
                     align_items: AlignItems::Center,
+                    row_gap: Val::Px(10.0), 
                     width: Val::Percent(100.0), 
                     height: Val::Percent(100.0),
                     ..default()
                 },
-                background_color: Color::GREEN.into(),
+                background_color: Color::BLACK.into(),
                 ..default()
             },
             MainMenu {},
         ))
         .with_children(|parent|{
             // == Title ==
-
+            parent.spawn(
+                NodeBundle {
+                    style: Style {
+                        flex_direction: FlexDirection::Row,
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
+                        height: Val::Px(120.0),
+                        width: Val::Px(300.0),
+                        ..default()
+                    },
+                    ..default()
+                }).with_children(|parent| {
+                    /* Image
+                    parent.spawn(
+                        ImageBundle{
+                            ..default()
+                        }
+                    )*/
+                    // == Text ==
+                    parent.spawn(
+                        TextBundle {
+                            text: Text{
+                                sections: vec![
+                                    TextSection::new("Artifact Game", 
+                                    TextStyle {
+                                        font: asset_server.load("upheavtt.ttf"),
+                                        font_size: 60.0,
+                                        color: Color::WHITE.into(),
+                                    })
+                                ],
+                                alignment: TextAlignment::Center,
+                                ..default()
+                            },
+                            ..default()
+                        }
+                    );
+                });
             // == Play ==
             parent.spawn(
                 (ButtonBundle {
                     style: Style {
                         height: Val::Px(80.0),
                         width: Val::Px(200.0),
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
                         ..default()
                     },
-                    background_color : Color::PINK.into(),
+                    image: UiImage { 
+                        texture: asset_server.load("mainmenu/button.png"),
+                        ..default()
+                    },
                     ..default()
                 },
                 PlayButton{},
@@ -68,9 +110,15 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                     style: Style {
                         height: Val::Px(80.0),
                         width: Val::Px(200.0),
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
                         ..default()
                     },
-                    background_color : Color::BLUE.into(),
+                    image: UiImage { 
+                        texture: asset_server.load("mainmenu/button.png"),
+                        ..default()
+                    },
+                    //background_color : Color::BLUE.into(),
                     ..default()
                 },
                 QuitButton{},

@@ -2,7 +2,6 @@ use bevy::prelude::*;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
-use game::level_controller::LevelControllerPlugin;
 use main_menu::MainMenuPlugin;
 use game::{level_controller::LevelControllerPlugin, player::PlayerPlugin};
 
