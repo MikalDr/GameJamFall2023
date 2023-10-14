@@ -14,7 +14,7 @@ impl Plugin for GamePlugin {
         .add_plugins((
             PauseMenuPlugin,
         ))
-        .add_systems(Update, kill_conditions_player)
+        //.add_systems(Update, kill_conditions_player)
         .add_systems(Update, toggle_simulation);
         //.add_systems(Update, app_state_call);
     }
