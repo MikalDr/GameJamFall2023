@@ -11,10 +11,12 @@ mod credits_menu;
 
 mod game;
 mod sound_controller;
+mod status_effects;
 
 use bevy::prelude::*;
 use credits_menu::CreditsMenuPlugin;
 use sound_controller::SoundPlugin;
+use status_effects::EffectPlugin;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
@@ -22,6 +24,7 @@ use main_menu::{MainMenuPlugin};
 use death_screen::DeathMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
+
 
 
 
@@ -48,6 +51,7 @@ fn main() {
                 CreditsMenuPlugin,
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic
+                EffectPlugin,
             )
         )
         .run();
