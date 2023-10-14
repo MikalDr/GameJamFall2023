@@ -3,7 +3,7 @@ use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 use main_menu::MainMenuPlugin;
-use game::{level_controller::LevelControllerPlugin, player::PlayerPlugin};
+use game::{level_controller::LevelControllerPlugin, platformer::PlatformerPlugin};
 
 mod game;
 mod main_menu;
@@ -25,22 +25,23 @@ fn main() {
         )
         .add_plugins(
             (
-                LdtkPlugin,
-                MainMenuPlugin,
+                //MainMenuPlugin,
                 //LevelControllerPlugin
-                LevelControllerPlugin,
-                PlayerPlugin,
+                //LevelControllerPlugin,
+                PlatformerPlugin,
             )
         )
+        /*
         .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(100.0))
         .add_plugins(RapierDebugRenderPlugin::default())
+        */
         .add_state::<AppState>()
         .add_systems(Startup, setup_graphics)
         .run();
 }
 
 fn setup_graphics(mut cmd: Commands) {
-    cmd.spawn(Camera2dBundle::default());
+    //cmd.spawn(Camera2dBundle::default());
 }
 
 #[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]

@@ -65,8 +65,3 @@ fn toggle_levels(input: Res<Input<KeyCode>>, mut level_sets: Query<&mut LevelSet
         }
     }
 }
-
-
-fn load_level(mut level_sets: Query<&mut LevelSet>, lvl_code: &str) {
-
-}

@@ -1,12 +1,9 @@
 use bevy::prelude::*;
 
 mod systems;
-pub mod player;
 pub struct GamePlugin;
 pub mod level_controller;
-pub mod level_systems;
-pub mod level_components;
-
+pub mod platformer;
 /*
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App){
