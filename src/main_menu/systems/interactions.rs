@@ -1,34 +1,55 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, app::AppExit};
 
-use crate::main_menu::components::*;
+use crate::{main_menu::components::*, AppState};
 
 pub fn interact_with_play_button(
-    mut button_query: Query<(&Interaction, &mut UiImage), (Changed<Interaction>, With<PlayButton>)>, asset_server: Res<AssetServer>
+    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<PlayButton>)>,
+     mut app_state_next_state: ResMut<NextState<AppState>> ,asset_server: Res<AssetServer>
 ) {
-    if let Ok((interaction, mut image)) = button_query.get_single_mut() {
+    let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
+    let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
+    //does not work
+    //let pressed_color : Color = Color::rgb(23.0,94.0,254.0);
+
+    if let Ok((interaction, mut image, mut background_color)) = button_query.get_single_mut() {
         match *interaction {
-            Interaction::Pressed => {}
+            Interaction::Pressed => {
+                image.texture = normal_button;
+                *background_color = Color::BLUE.into();
+                app_state_next_state.set(AppState::Game);
+            }
             Interaction::Hovered => {
-                image.texture = asset_server.load("mainmenu/buttonhover.png");
+                image.texture = asset_server.load("mainmenu/buttonhover.png").into();
             }
             Interaction::None => {
-                image.texture = asset_server.load("mainmenu/button.png");
+                image.texture = asset_server.load("mainmenu/button.png").into();
             }
         }
     }
 }
 
 pub fn interact_with_quit_button(
-    mut button_query: Query<(&Interaction, &mut UiImage), (Changed<Interaction>, With<QuitButton>)>, asset_server: Res<AssetServer>
+    mut app_exit_event_writer: EventWriter<AppExit>,
+    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<QuitButton>)>, asset_server: Res<AssetServer>
 ) {
-    if let Ok((interaction, mut image)) = button_query.get_single_mut() {
+    let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
+    let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
+    let pressed_color : Color = Color::rgb(23.0,94.0,254.0);
+
+    if let Ok((interaction, mut image, mut background_color)) = button_query.get_single_mut() {
         match *interaction {
-            Interaction::Pressed => {}
+            Interaction::Pressed => {
+                image.texture = normal_button;
+                *background_color = Color::BLUE.into();
+                app_exit_event_writer.send(AppExit);
+            }
             Interaction::Hovered => {
-                image.texture = asset_server.load("mainmenu/buttonhover.png");
+                image.texture = hover_button;
+                *background_color = Color::WHITE.into();
             }
             Interaction::None => {
-                image.texture = asset_server.load("mainmenu/button.png");
+                image.texture = normal_button;
+                *background_color = Color::WHITE.into();
             }
         }
     }

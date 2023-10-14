@@ -79,7 +79,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                         ..default()
                     },
                     image: UiImage { 
-                        texture: asset_server.load("mainmenu/button.png"),
+                        texture: asset_server.load("mainmenu/button.png").into(),
                         ..default()
                     },
                     ..default()
@@ -94,7 +94,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                                 TextStyle {
                                     font: asset_server.load("upheavtt.ttf"),
                                     font_size: 32.0,
-                                    color: Color::WHITE.into(),
+                                    ..default()
                                 })
                             ],
                             alignment: TextAlignment::Center,
@@ -115,7 +115,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                         ..default()
                     },
                     image: UiImage { 
-                        texture: asset_server.load("mainmenu/button.png"),
+                        texture: asset_server.load("mainmenu/button.png").into(),
                         ..default()
                     },
                     //background_color : Color::BLUE.into(),
@@ -131,7 +131,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                                 TextStyle {
                                     font: asset_server.load("upheavtt.ttf"),
                                     font_size: 32.0,
-                                    color: Color::WHITE.into(),
+                                    ..default()
                                 })
                             ],
                             alignment: TextAlignment::Center,

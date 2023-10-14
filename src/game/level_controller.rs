@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 use rand::Rng;
-use crate::utils::Const::LEVEL_IDS;
+use crate::{utils::Const::LEVEL_IDS, AppState};
 
 pub struct LevelControllerPlugin;
 
@@ -19,8 +19,12 @@ impl Default for CurrentLevel {
 impl Plugin for LevelControllerPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(Startup, setup)
-            .add_systems(Update, toggle_levels)
+            .add_systems(OnEnter(AppState::Game), setup)
+            //Despawn despawn setup
+            //.add_systems(OnExit(AppState::Game), setup)
+            .add_systems(OnEnter(AppState::Game), toggle_levels)
+            //despawn toggle_levels (if needed)
+            //.add_systems(OnExit(AppState::Game), toggle_levels)
             .init_resource::<CurrentLevel>()
             .insert_resource(LdtkSettings {
             level_spawn_behavior: LevelSpawnBehavior::UseWorldTranslation  {

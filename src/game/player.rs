@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use bevy_rapier2d::prelude::{Collider, RigidBody};
 
+use crate::AppState;
+
 #[derive(Component)]
 pub struct Player;
 
@@ -39,7 +41,7 @@ pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_systems(Startup, setup)
+            .add_systems(OnEnter(AppState::Game), setup)
             .add_systems(Update, animate_sprite);
     }
 }
