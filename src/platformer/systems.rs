@@ -18,44 +18,21 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     });
 }
 
-pub fn dbg_player_items(
-    input: Res<Input<KeyCode>>,
-    mut query: Query<(&Items, &EntityInstance), With<Player>>,
-) {
-    for (items, entity_instance) in &mut query {
-        if input.just_pressed(KeyCode::P) {
-            dbg!(&items);
-            dbg!(&entity_instance);
-        }
-    }
-}
 
+// This is not good
 pub fn movement(
     input: Res<Input<KeyCode>>,
-    mut query: Query<(&mut Velocity, &mut Climber, &GroundDetection), With<Player>>,
+    mut query: Query<(&mut Velocity, &GroundDetection), With<Player>>,
 ) {
-    for (mut velocity, mut climber, ground_detection) in &mut query {
+    for (mut velocity, ground_detection) in &mut query {
         let right = if input.pressed(KeyCode::D) { 1. } else { 0. };
         let left = if input.pressed(KeyCode::A) { 1. } else { 0. };
 
         velocity.linvel.x = (right - left) * 200.;
 
-        if climber.intersecting_climbables.is_empty() {
-            climber.climbing = false;
-        } else if input.just_pressed(KeyCode::W) || input.just_pressed(KeyCode::S) {
-            climber.climbing = true;
-        }
-
-        if climber.climbing {
-            let up = if input.pressed(KeyCode::W) { 1. } else { 0. };
-            let down = if input.pressed(KeyCode::S) { 1. } else { 0. };
-
-            velocity.linvel.y = (up - down) * 200.;
-        }
-
-        if input.just_pressed(KeyCode::Space) && (ground_detection.on_ground || climber.climbing) {
+        // Jumping
+        if input.just_pressed(KeyCode::Space) && (ground_detection.on_ground) {
             velocity.linvel.y = 500.;
-            climber.climbing = false;
         }
     }
 }
@@ -224,87 +201,6 @@ pub fn spawn_wall_collision(
                 });
             }
         });
-    }
-}
-
-pub fn detect_climb_range(
-    mut climbers: Query<&mut Climber>,
-    climbables: Query<Entity, With<Climbable>>,
-    mut collisions: EventReader<CollisionEvent>,
-) {
-    for collision in collisions.iter() {
-        match collision {
-            CollisionEvent::Started(collider_a, collider_b, _) => {
-                if let (Ok(mut climber), Ok(climbable)) =
-                    (climbers.get_mut(*collider_a), climbables.get(*collider_b))
-                {
-                    climber.intersecting_climbables.insert(climbable);
-                }
-                if let (Ok(mut climber), Ok(climbable)) =
-                    (climbers.get_mut(*collider_b), climbables.get(*collider_a))
-                {
-                    climber.intersecting_climbables.insert(climbable);
-                };
-            }
-            CollisionEvent::Stopped(collider_a, collider_b, _) => {
-                if let (Ok(mut climber), Ok(climbable)) =
-                    (climbers.get_mut(*collider_a), climbables.get(*collider_b))
-                {
-                    climber.intersecting_climbables.remove(&climbable);
-                }
-
-                if let (Ok(mut climber), Ok(climbable)) =
-                    (climbers.get_mut(*collider_b), climbables.get(*collider_a))
-                {
-                    climber.intersecting_climbables.remove(&climbable);
-                }
-            }
-        }
-    }
-}
-
-pub fn ignore_gravity_if_climbing(
-    mut query: Query<(&Climber, &mut GravityScale), Changed<Climber>>,
-) {
-    for (climber, mut gravity_scale) in &mut query {
-        if climber.climbing {
-            gravity_scale.0 = 0.0;
-        } else {
-            gravity_scale.0 = 1.0;
-        }
-    }
-}
-
-pub fn patrol(mut query: Query<(&mut Transform, &mut Velocity, &mut Patrol)>) {
-    for (mut transform, mut velocity, mut patrol) in &mut query {
-        if patrol.points.len() <= 1 {
-            continue;
-        }
-
-        let mut new_velocity =
-            (patrol.points[patrol.index] - transform.translation.truncate()).normalize() * 75.;
-
-        if new_velocity.dot(velocity.linvel) < 0. {
-            if patrol.index == 0 {
-                patrol.forward = true;
-            } else if patrol.index == patrol.points.len() - 1 {
-                patrol.forward = false;
-            }
-
-            transform.translation.x = patrol.points[patrol.index].x;
-            transform.translation.y = patrol.points[patrol.index].y;
-
-            if patrol.forward {
-                patrol.index += 1;
-            } else {
-                patrol.index -= 1;
-            }
-
-            new_velocity =
-                (patrol.points[patrol.index] - transform.translation.truncate()).normalize() * 75.;
-        }
-
-        velocity.linvel = new_velocity;
     }
 }
 
