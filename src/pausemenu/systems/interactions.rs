@@ -1,12 +1,14 @@
 use bevy::{prelude::*, app::AppExit};
 
-use crate::{game::GameState, AppState};
+use crate::{game::GameState, AppState, sound_controller::systems::play_menu_click_sound};
 
 use super::layouts::{ResumeButton, ReturnButton};
 
 pub fn interact_with_resume_button(
+    mut commands: Commands,
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ResumeButton>)>,
-     mut game_state_next_state: ResMut<NextState<GameState>> ,asset_server: Res<AssetServer>
+     mut game_state_next_state: ResMut<NextState<GameState>>,
+     asset_server: Res<AssetServer>
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
     let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
@@ -18,6 +20,7 @@ pub fn interact_with_resume_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
+                play_menu_click_sound(commands, asset_server);
                 game_state_next_state.set(GameState::Running);
             }
             Interaction::Hovered => {
@@ -31,6 +34,7 @@ pub fn interact_with_resume_button(
 }
 
 pub fn interact_with_return_button(
+    mut commands: Commands,
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ReturnButton>)>, asset_server: Res<AssetServer>,
     mut app_state_next_state: ResMut<NextState<AppState>>
 ) {
@@ -43,6 +47,7 @@ pub fn interact_with_return_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
+                play_menu_click_sound(commands, asset_server);
                 app_state_next_state.set(AppState::MainMenu);
             }
             Interaction::Hovered => {
