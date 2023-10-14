@@ -1,8 +1,11 @@
-mod main_menu;
 mod utils;
 mod systems;
 mod platformer;
+// == Menues ==
+mod main_menu;
 mod pausemenu;
+mod options_menu;
+
 mod game;
 mod sound_controller;
 
@@ -48,6 +51,8 @@ fn main() {
 pub enum AppState {
     #[default]
     MainMenu,
+    Credits,
+    Options,
     Game,
     GameOver,
 }

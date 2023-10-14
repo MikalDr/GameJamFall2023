@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{main_menu::components::{MainMenu, PlayButton, QuitButton}};
+use crate::{main_menu::components::{MainMenu, PlayButton, QuitButton, CreditsButton, OptionsButton}};
 
 pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>){
     println!("Entered Main menu");
@@ -92,6 +92,79 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                         text: Text{
                             sections: vec![
                                 TextSection::new("Play", 
+                                TextStyle {
+                                    font: asset_server.load("upheavtt.ttf"),
+                                    font_size: 32.0,
+                                    ..default()
+                                })
+                            ],
+                            alignment: TextAlignment::Center,
+                            ..default()
+                        },
+                        ..default()
+                    }
+                );
+            });
+           
+            // == Options ==
+            parent.spawn(
+                (ButtonBundle {
+                    style: Style {
+                        height: Val::Px(80.0),
+                        width: Val::Px(200.0),
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    image: UiImage { 
+                        texture: asset_server.load("mainmenu/button.png").into(),
+                        ..default()
+                    },
+                    ..default()
+                },
+                OptionsButton{},
+            )).with_children(|parent|{
+                parent.spawn(
+                    TextBundle {
+                        text: Text{
+                            sections: vec![
+                                TextSection::new("Options", 
+                                TextStyle {
+                                    font: asset_server.load("upheavtt.ttf"),
+                                    font_size: 32.0,
+                                    ..default()
+                                })
+                            ],
+                            alignment: TextAlignment::Center,
+                            ..default()
+                        },
+                        ..default()
+                    }
+                );
+            });
+            // == Credits ==
+            parent.spawn(
+                (ButtonBundle {
+                    style: Style {
+                        height: Val::Px(80.0),
+                        width: Val::Px(200.0),
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
+                        ..default()
+                    },
+                    image: UiImage { 
+                        texture: asset_server.load("mainmenu/button.png").into(),
+                        ..default()
+                    },
+                    ..default()
+                },
+                CreditsButton{},
+            )).with_children(|parent|{
+                parent.spawn(
+                    TextBundle {
+                        text: Text{
+                            sections: vec![
+                                TextSection::new("Credits", 
                                 TextStyle {
                                     font: asset_server.load("upheavtt.ttf"),
                                     font_size: 32.0,

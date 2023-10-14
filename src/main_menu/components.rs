@@ -8,3 +8,9 @@ pub struct PlayButton {}
 
 #[derive(Component)]
 pub struct QuitButton {}
+
+#[derive(Component)]
+pub struct OptionsButton {}
+
+#[derive(Component)]
+pub struct CreditsButton {}
