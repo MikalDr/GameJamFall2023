@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::game::GameState;
+use crate::{game::GameState, player::Player};
 
 use super::components::*;
 
@@ -480,3 +480,5 @@ pub fn is_position_within_level(
 pub fn start_game_time(mut commands: Commands){
     commands.insert_resource(NextState(Some(GameState::Running)));
 }
+
+

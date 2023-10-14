@@ -1,7 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{systems::{toggle_simulation, app_state_call}, pausemenu::PauseMenuPlugin, platformer::{systems::is_position_within_level, components::Player}, AppState};
-
+use crate::{systems::{toggle_simulation, app_state_call}, pausemenu::PauseMenuPlugin, platformer::systems::is_position_within_level, AppState, player::Player};
 
 pub struct GamePlugin;
 

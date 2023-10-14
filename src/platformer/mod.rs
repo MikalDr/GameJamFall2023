@@ -3,7 +3,7 @@ use bevy_ecs_ldtk::prelude::*;
 
 use bevy_rapier2d::prelude::*;
 
-use crate::game::{kill_player, GameState};
+use crate::{game::{kill_player, GameState}, player::PlayerBundle};
 
 use self::systems::*;
 
@@ -48,6 +48,6 @@ impl Plugin for PlatformerPlugin {
             .add_systems(Update, restart_level)
             .register_ldtk_int_cell::<components::WallBundle>(1)
             .register_ldtk_int_cell::<components::WallBundle>(3)
-            .register_ldtk_entity::<components::PlayerBundle>("Player");
+            .register_ldtk_entity::<PlayerBundle>("Player");
     }
 }
