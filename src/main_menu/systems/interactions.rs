@@ -95,6 +95,7 @@ pub fn interact_with_options_button(
 pub fn interact_with_credit_button(
     mut commands: Commands,
     mut app_exit_event_writer: EventWriter<AppExit>,
+    mut app_state_next_state: ResMut<NextState<AppState>>,
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<CreditsButton>)>,
     asset_server: Res<AssetServer>
 ) {
@@ -107,6 +108,7 @@ pub fn interact_with_credit_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
+                app_state_next_state.set(AppState::Credits);
                 play_menu_click_sound(&mut commands, asset_server);
             }
             Interaction::Hovered => {

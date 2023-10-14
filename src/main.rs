@@ -7,16 +7,18 @@ mod main_menu;
 mod pausemenu;
 mod options_menu;
 mod death_screen;
+mod credits_menu;
 
 mod game;
 mod sound_controller;
 
 use bevy::prelude::*;
+use credits_menu::CreditsMenuPlugin;
 use sound_controller::SoundPlugin;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
-use main_menu::MainMenuPlugin;
+use main_menu::{MainMenuPlugin};
 use death_screen::DeathMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
@@ -43,6 +45,7 @@ fn main() {
                 PlatformerPlugin,
                 MainMenuPlugin,
                 DeathMenuPlugin,
+                CreditsMenuPlugin,
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic
             )
