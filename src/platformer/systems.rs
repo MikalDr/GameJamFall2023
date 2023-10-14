@@ -489,3 +489,5 @@ pub fn is_position_within_level(
 pub fn start_game_time(mut commands: Commands){
     commands.insert_resource(NextState(Some(GameState::Running)));
 }
+
+

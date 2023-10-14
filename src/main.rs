@@ -1,6 +1,7 @@
 mod utils;
 mod systems;
 mod platformer;
+mod player;
 // == Menues ==
 mod main_menu;
 mod pausemenu;

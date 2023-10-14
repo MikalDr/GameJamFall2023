@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{AppState, game::GameState, platformer::components::Player};
+use crate::{AppState, game::GameState, player::Player};
 
 pub fn transistion_to_game_state(
     mut commands: Commands,
