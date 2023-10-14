@@ -30,22 +30,14 @@ fn main() {
         .add_state::<AppState>()
         .add_plugins(
             (
-                PlatformerPlugin,
                 MainMenuPlugin, //MainMenu
                 GamePlugin, //GameLogic
+                PlatformerPlugin,
             )
         )
-        /*
-        .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(100.0))
-        .add_plugins(RapierDebugRenderPlugin::default())
-        */
-        .add_systems(Startup, setup_graphics)
         .run();
 }
 
-fn setup_graphics(mut cmd: Commands) {
-    //cmd.spawn(Camera2dBundle::default());
-}
 
 #[derive(States, Debug, Clone, Copy, Eq, PartialEq, Hash, Default)]
 pub enum AppState {
