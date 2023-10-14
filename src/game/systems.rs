@@ -1,7 +1,6 @@
 use bevy::prelude::*;
-use crate::game::GameState;
+use super::GameState;
 
-/*
 pub fn toggle_simulation(
     mut commands: Commands,
     keyboard_input: Res<Input<KeyCode>>,
@@ -9,7 +8,7 @@ pub fn toggle_simulation(
 ) 
 {
     if keyboard_input.just_pressed(KeyCode::Space) {
-        if game_state.0 == Simulation::Running {
+        if game_state.0 == GameState::Running {
             commands.insert_resource(NextState(Some(GameState::Paused)));
             println!("The game is paused");
         }
@@ -18,4 +17,4 @@ pub fn toggle_simulation(
             println!("The game is running");
         }
     }
-}*/
+}

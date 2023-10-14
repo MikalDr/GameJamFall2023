@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use self::{pausemenu::PauseMenuPlugin, level_controller::LevelControllerPlugin, player::PlayerPlugin};
 
-mod systems;
+pub mod systems;
 pub mod player;
 pub struct GamePlugin;
 pub mod level_controller;

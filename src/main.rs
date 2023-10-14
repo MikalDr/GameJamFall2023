@@ -8,6 +8,7 @@ use game::GamePlugin;
 mod game;
 mod main_menu;
 mod utils;
+mod systems;
 
 
 
@@ -23,6 +24,7 @@ fn main() {
             }) // Window stuff
             .set(ImagePlugin::default_nearest()) // Prevents blurry pics?
         )
+        .add_state::<AppState>()
         .add_plugins(
             (
                 LdtkPlugin,
@@ -32,7 +34,6 @@ fn main() {
         )
         .add_plugins(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(100.0))
         .add_plugins(RapierDebugRenderPlugin::default())
-        .add_state::<AppState>()
         .add_systems(Startup, setup_graphics)
         .run();
 }
