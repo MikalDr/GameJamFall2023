@@ -33,7 +33,7 @@ impl Plugin for PlatformerPlugin {
                 ..Default::default()
             })
             .add_systems(Startup, setup)
-            .add_systems(Startup, apply_player_sprite)
+            //.add_systems(Startup, apply_player_sprite)
             .add_systems(Update, player_debug)
             .add_systems(Update, animate_sprite)
             .add_systems(Update, spawn_wall_collision)

@@ -6,9 +6,6 @@ mod pausemenu;
 mod game;
 
 use bevy::prelude::*;
-use systems::*;
-use bevy_ecs_ldtk::LdtkPlugin;
-use bevy_rapier2d::prelude::*;
 use main_menu::MainMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
@@ -30,8 +27,8 @@ fn main() {
         .add_state::<AppState>()
         .add_plugins(
             (
-                MainMenuPlugin, //MainMenu
-                GamePlugin, //GameLogic
+                //MainMenuPlugin, //MainMenu
+                //GamePlugin, //GameLogic
                 PlatformerPlugin,
             )
         )
