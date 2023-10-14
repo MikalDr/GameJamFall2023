@@ -32,7 +32,7 @@ pub fn app_state_call(
     game_state: Res<State<GameState>>,
     app_state: Res<State<AppState>>)
     {
-    println!("{:?} {:?}", app_state.get(), game_state.get());
+    //println!("{:?} {:?}", app_state.get(), game_state.get());
 }
 
 pub fn toggle_simulation(

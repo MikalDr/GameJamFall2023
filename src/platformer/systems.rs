@@ -470,7 +470,7 @@ pub fn is_position_within_level(
             let max: UVec2 = (camera.physical_viewport_rect()?).1;
             let player_transform = camera.world_to_viewport(transform, player_translation)?;
 
-            println!("{:?} {:?} {:?} ", min, max, player_transform);
+            //println!("{:?} {:?} {:?} ", min, max, player_transform);
 
             if(player_transform.x < min.x as f32 || player_transform.x >= max.x as f32){
                 return Some(true)
