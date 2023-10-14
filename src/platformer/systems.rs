@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::{game::GameState, AppState};
+use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound};
 
 use super::components::*;
 
@@ -26,6 +26,8 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 // This is not good
 pub fn movement(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
     input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Velocity, &GroundDetection), With<Player>>,
 ) {
@@ -37,6 +39,7 @@ pub fn movement(
 
         // Jumping
         if input.just_pressed(KeyCode::Space) && (ground_detection.on_ground) {
+            play_jump_sound(&mut commands, &asset_server);
             velocity.linvel.y = 500.;
         }
     }

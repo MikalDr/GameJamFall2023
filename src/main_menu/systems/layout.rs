@@ -107,6 +107,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
             });
            
             // == Options ==
+            /*
             parent.spawn(
                 (ButtonBundle {
                     style: Style {
@@ -141,7 +142,7 @@ pub fn build_main_menu(commands: &mut Commands, asset_server: Res<AssetServer>) 
                         ..default()
                     }
                 );
-            });
+            });*/
             // == Credits ==
             parent.spawn(
                 (ButtonBundle {

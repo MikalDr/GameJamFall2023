@@ -6,11 +6,34 @@
 }*/
 
 use bevy::{prelude::*, audio::PlaybackMode};
+use bevy::audio::{Volume, VolumeLevel};
 
 pub fn play_menu_click_sound(commands: &mut Commands, asset_server: Res<AssetServer>){
     commands.spawn(AudioBundle {
         source: asset_server.load("sounds/menu_click.ogg"),
         settings: PlaybackSettings { 
+            mode: PlaybackMode::Once,
+            ..default()
+         }
+    });
+}
+
+pub fn play_jump_sound(commands: &mut Commands, asset_server: &Res<AssetServer>){
+    commands.spawn(AudioBundle {
+        source: asset_server.load("sounds/jump.ogg"),
+        settings: PlaybackSettings { 
+            volume: Volume::Absolute(VolumeLevel::new(0.05)),
+            mode: PlaybackMode::Once,
+            ..default()
+         }
+    });
+}
+
+pub fn play_pickup_sound(commands: &mut Commands, asset_server: &Res<AssetServer>){
+    commands.spawn(AudioBundle {
+        source: asset_server.load("sounds/pickup.ogg"),
+        settings: PlaybackSettings { 
+            volume: Volume::Absolute(VolumeLevel::new(0.5)),
             mode: PlaybackMode::Once,
             ..default()
          }
