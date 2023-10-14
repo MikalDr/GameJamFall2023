@@ -13,7 +13,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let camera = Camera2dBundle::default();
     commands.spawn(camera);
 
-    let ldtk_handle = asset_server.load("map\\Typical_2D_platformer_example.ldtk");
+    let ldtk_handle = asset_server.load("map/gjf.ldtk");
     commands.spawn(LdtkWorldBundle {
         ldtk_handle,
         ..Default::default()
@@ -447,6 +447,34 @@ pub fn player_debug
     if let Ok(trans) = player_query.get_single() {
         println!("Player pos: {:?}", trans.translation);
     }
+}
+
+
+pub fn is_position_within_level(
+    mut camera_query: Query<
+        (
+            &bevy::render::camera::OrthographicProjection,
+            &Transform,
+        ),
+        Without<Player>,
+    >,
+    player_query: Query<&Transform, With<Player>>,
+)
+    -> Option<bool>
+{
+    if let Ok(Transform {
+        translation: player_translation,
+        ..
+    }) = player_query.get_single()
+    {
+        let player_translation = *player_translation;
+
+        let (orthographic_projection, mut camera_transform) = camera_query.single_mut();
+
+        return Some(orthographic_projection.area.contains(Vec2::new(player_translation.x, player_translation.y)));
+    }
+
+    return None;
 }
 
 pub fn start_game_time(mut commands: Commands){
