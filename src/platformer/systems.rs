@@ -1,11 +1,11 @@
 use bevy::{prelude::*, render::camera};
-use bevy_ecs_ldtk::prelude::*;
+use bevy_ecs_ldtk::{prelude::*, ldtk::World};
 
 use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::{game::GameState, AppState, player::Player};
+use crate::{game::GameState, AppState, player::{Player, components::Item}};
 
 use super::components::*;
 
@@ -487,4 +487,27 @@ pub fn start_game_time(mut commands: Commands){
     commands.insert_resource(NextState(Some(GameState::Running)));
 }
 
+
+pub fn debug_item(
+    entity_query: Query<(Entity, &Transform, &EntityInstance), (With<Item>, Added<EntityInstance>)>,
+    input: Res<Input<KeyCode>>,
+    mut cmd: Commands
+) {
+
+    let mut ent: Option<Entity> = None;
+
+    for (e, p, ei) in entity_query.iter() {
+        println!("{:?}, {:?}, {:?}", e, p.translation, ei);
+        ent = Some(e);
+    }
+
+    if input.pressed(KeyCode::L) {
+        println!("\n\nUWU\n\n");
+        if let Some(e) = ent {
+            cmd.entity(e).despawn();
+            println!("DELETED-----------------------------------------------------------------------\n\n\n\n\n\n\n\n");
+        }
+
+    }
+}
 
