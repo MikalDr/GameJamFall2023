@@ -1,10 +1,11 @@
-use crate::game::platformer::components::*;
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 
 use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
+
+use super::components::*;
 
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let camera = Camera2dBundle::default();

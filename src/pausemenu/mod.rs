@@ -1,10 +1,9 @@
 use bevy::prelude::*;
 
-use crate::AppState;
+use crate::{AppState, game::GameState};
 
 use self::systems::{layouts::{despawn_pause_menu, spawn_pause_menu}, interactions::{interact_with_resume_button, interact_with_return_button}};
 
-use super::GameState;
 
 mod systems;
 

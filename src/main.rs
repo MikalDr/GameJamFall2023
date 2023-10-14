@@ -1,14 +1,17 @@
+mod main_menu;
+mod utils;
+mod systems;
+mod platformer;
+mod pausemenu;
+mod game;
+
 use bevy::prelude::*;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 use main_menu::MainMenuPlugin;
-use game::{level_controller::LevelControllerPlugin, platformer::PlatformerPlugin, GamePlugin};
-
-mod game;
-mod main_menu;
-mod utils;
-mod systems;
+use platformer::PlatformerPlugin;
+use game::GamePlugin;
 
 
 
@@ -27,9 +30,6 @@ fn main() {
         .add_state::<AppState>()
         .add_plugins(
             (
-                //MainMenuPlugin,
-                //LevelControllerPlugin
-                //LevelControllerPlugin,
                 PlatformerPlugin,
                 MainMenuPlugin, //MainMenu
                 GamePlugin, //GameLogic
