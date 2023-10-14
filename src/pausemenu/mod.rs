@@ -5,7 +5,7 @@ use crate::{AppState, game::GameState};
 use self::systems::{layouts::{despawn_pause_menu, spawn_pause_menu}, interactions::{interact_with_resume_button, interact_with_return_button}};
 
 
-mod systems;
+pub mod systems;
 
 pub struct PauseMenuPlugin;
 

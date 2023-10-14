@@ -1,18 +1,18 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, render::camera};
 use bevy_ecs_ldtk::prelude::*;
 
 use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::game::GameState;
+use crate::{game::GameState, AppState};
 
 use super::components::*;
 
-pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let camera = Camera2dBundle::default();
-    commands.spawn(camera);
+#[derive(Component)]
+pub struct WorldCamera {}
 
+pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let ldtk_handle = asset_server.load("map/gjf.ldtk");
     commands.spawn(LdtkWorldBundle {
         ldtk_handle,
@@ -64,6 +64,8 @@ pub fn spawn_wall_collision(
     parent_query: Query<&Parent, Without<Wall>>,
     level_query: Query<(Entity, &Handle<LdtkLevel>)>,
     levels: Res<Assets<LdtkLevel>>,
+    game_state: Res<State<GameState>>,
+    app_state: Res<State<AppState>>
 ) {
     /// Represents a wide wall that is 1 tile tall
     /// Used to spawn wall collisions
@@ -382,12 +384,9 @@ pub fn update_on_ground(
 pub fn restart_level(
     mut commands: Commands,
     level_query: Query<Entity, With<Handle<LdtkLevel>>>,
-    input: Res<Input<KeyCode>>,
 ) {
-    if input.just_pressed(KeyCode::R) {
         for level_entity in &level_query {
             commands.entity(level_entity).insert(Respawn);
-        }
     }
 }
 
@@ -451,13 +450,7 @@ pub fn player_debug
 
 
 pub fn is_position_within_level(
-    mut camera_query: Query<
-        (
-            &bevy::render::camera::OrthographicProjection,
-            &Transform,
-        ),
-        Without<Player>,
-    >,
+    mut camera_query: Query<(&Camera, &GlobalTransform), With<WorldCamera>>,
     player_query: Query<&Transform, With<Player>>,
 )
     -> Option<bool>
@@ -469,9 +462,22 @@ pub fn is_position_within_level(
     {
         let player_translation = *player_translation;
 
-        let (orthographic_projection, mut camera_transform) = camera_query.single_mut();
+        if let Ok((camera, transform)) = camera_query.get_single() {
+            let min: UVec2 = (camera.physical_viewport_rect()?).0;
+            let max: UVec2 = (camera.physical_viewport_rect()?).1;
+            let player_transform = camera.world_to_viewport(transform, player_translation)?;
 
-        return Some(orthographic_projection.area.contains(Vec2::new(player_translation.x, player_translation.y)));
+            println!("{:?} {:?} {:?} ", min, max, player_transform);
+
+            if(player_transform.x < min.x as f32 || player_transform.x >= max.x as f32){
+                return Some(true)
+            }
+            if(player_transform.y < min.y as f32 || player_transform.y > max.y as f32){
+                return Some(true)
+            }
+            return Some(false)
+        }
+        //return Some(orthographic_projection.area.contains(Vec2::new(player_translation.x, player_translation.y)));
     }
 
     return None;

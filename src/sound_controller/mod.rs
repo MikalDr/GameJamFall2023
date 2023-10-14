@@ -17,6 +17,6 @@ impl Plugin for SoundPlugin {
 
 pub fn piss(mut commands: Commands,key_input: Res<Input<KeyCode>>, asset_server: Res<AssetServer>){
     if(key_input.just_pressed(KeyCode::F)){
-        play_menu_click_sound(commands, asset_server);
+        play_menu_click_sound(&mut commands, asset_server);
     }
 }

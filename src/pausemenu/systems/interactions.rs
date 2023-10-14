@@ -1,6 +1,7 @@
 use bevy::{prelude::*, app::AppExit};
+use bevy_ecs_ldtk::LdtkLevel;
 
-use crate::{game::GameState, AppState, sound_controller::systems::play_menu_click_sound};
+use crate::{game::GameState, AppState, sound_controller::systems::play_menu_click_sound, platformer::systems::restart_level};
 
 use super::layouts::{ResumeButton, ReturnButton};
 
@@ -20,7 +21,7 @@ pub fn interact_with_resume_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
                 game_state_next_state.set(GameState::Running);
             }
             Interaction::Hovered => {
@@ -36,7 +37,9 @@ pub fn interact_with_resume_button(
 pub fn interact_with_return_button(
     mut commands: Commands,
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ReturnButton>)>, asset_server: Res<AssetServer>,
-    mut app_state_next_state: ResMut<NextState<AppState>>
+    mut app_state_next_state: ResMut<NextState<AppState>>,
+    mut game_state_next_state: ResMut<NextState<GameState>>,
+    level_query: Query<Entity, With<Handle<LdtkLevel>>>,
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
     let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
@@ -47,7 +50,9 @@ pub fn interact_with_return_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
+                restart_level(commands, level_query);
+                game_state_next_state.set(GameState::Paused);
                 app_state_next_state.set(AppState::MainMenu);
             }
             Interaction::Hovered => {

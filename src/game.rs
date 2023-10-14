@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{systems::{toggle_simulation, app_state_call}, pausemenu::PauseMenuPlugin, platformer::{systems::is_position_within_level, components::Player}, AppState};
+use crate::{systems::{toggle_simulation, app_state_call, toggle_death}, pausemenu::PauseMenuPlugin, platformer::{systems::{is_position_within_level, WorldCamera}, components::Player}, AppState, game};
 
 
 pub struct GamePlugin;
@@ -13,7 +13,7 @@ impl Plugin for GamePlugin {
         .add_plugins((
             PauseMenuPlugin,
         ))
-        .add_systems(Update, kill_player)
+        .add_systems(Update, kill_conditions_player)
         .add_systems(Update, toggle_simulation);
         //.add_systems(Update, app_state_call);
     }
@@ -26,19 +26,25 @@ pub enum GameState {
     Running,
     #[default]
     Paused,
+    Dead,
 }
 
 
-pub fn kill_player(
+pub fn kill_conditions_player(
     mut cmd: Commands,
-    camera_query: Query<(&OrthographicProjection, &Transform), Without<Player>>,
+    mut camera_query: Query<(&Camera, &GlobalTransform), With<WorldCamera>>,
     player_query: Query<&Transform, With<Player>>,
     game_state: Res<State<GameState>>,
-    app_state: Res<State<AppState>>
+    app_state: Res<State<AppState>>,
+    player_entity_query: Query<Entity, With<Player>>
 ) {
+    println!("{:?} {:?}", game_state.get(), app_state.get());
     if game_state.get() == &GameState::Running && app_state.get() == &AppState::Game {
+        
+        // Kills player if outside screen
         if let Some(res) = is_position_within_level(camera_query, player_query) {
             if res {
+                toggle_death(cmd, game_state, app_state, player_entity_query);
                 println!("you dieded");
             }
         }
