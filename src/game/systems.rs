@@ -7,12 +7,12 @@ pub fn toggle_simulation(
     game_state: Res<State<GameState>>
 ) 
 {
-    if keyboard_input.just_pressed(KeyCode::Space) {
-        if game_state.0 == GameState::Running {
+    if keyboard_input.just_pressed(KeyCode::Escape) {
+        if game_state.get() == &GameState::Running {
             commands.insert_resource(NextState(Some(GameState::Paused)));
             println!("The game is paused");
         }
-        if game_state.0 == GameState::Paused {
+        if game_state.get() == &GameState::Paused {
             commands.insert_resource(NextState(Some(GameState::Running)));
             println!("The game is running");
         }

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use self::{pausemenu::PauseMenuPlugin, level_controller::LevelControllerPlugin, player::PlayerPlugin};
+use self::{pausemenu::PauseMenuPlugin, level_controller::LevelControllerPlugin, player::PlayerPlugin, systems::toggle_simulation};
 
 pub mod systems;
 pub mod player;
@@ -18,7 +18,8 @@ impl Plugin for GamePlugin {
             PauseMenuPlugin,
             LevelControllerPlugin,
             PlayerPlugin,
-        ));
+        ))
+        .add_systems(Update,toggle_simulation);
     }
 }
 
