@@ -16,8 +16,8 @@ impl Plugin for GamePlugin {
         app.add_state::<GameState>()
         .add_plugins((
             PauseMenuPlugin,
-            //LevelControllerPlugin,
-            //PlayerPlugin,
+            LevelControllerPlugin,
+            PlayerPlugin,
         ))
         .add_systems(Update,toggle_simulation);
     }
