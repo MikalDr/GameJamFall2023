@@ -494,7 +494,7 @@ pub fn restart_level(
 pub fn apply_player_sprite
 (
     mut cmd: Commands,
-    mut player_query: Query<(Entity), With<Player>>,
+    mut player_query: Query<Entity, With<Player>>,
     asset_server: Res<AssetServer>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>
 ) {
