@@ -3,6 +3,8 @@ use bevy_ecs_ldtk::prelude::*;
 
 use bevy_rapier2d::prelude::*;
 
+use crate::game::{kill_player, GameState};
+
 use self::systems::*;
 
 
@@ -34,7 +36,7 @@ impl Plugin for PlatformerPlugin {
             })
             .add_systems(Startup, setup)
             //.add_systems(Startup, apply_player_sprite)
-            .add_systems(Update, player_debug)
+            //.add_systems(Update, player_debug)
             .add_systems(Update, animate_sprite)
             .add_systems(Update, spawn_wall_collision)
             .add_systems(Update, movement)
