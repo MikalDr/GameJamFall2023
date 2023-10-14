@@ -8,7 +8,7 @@ use crate::AppState;
 pub struct MainMenuPlugin;
 
 mod systems;
-mod components;
+pub mod components;
 mod styles;
 
 impl Plugin for MainMenuPlugin {

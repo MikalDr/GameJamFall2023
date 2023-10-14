@@ -1,11 +1,12 @@
 use bevy::{prelude::*, app::AppExit};
 
-use crate::{main_menu::components::*, AppState, sound_controller::systems::play_menu_click_sound};
+use crate::{main_menu::components::*, AppState, sound_controller::systems::play_menu_click_sound, game::GameState};
 
 pub fn interact_with_play_button(
     mut commands: Commands,
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<PlayButton>)>,
-    mut app_state_next_state: ResMut<NextState<AppState>> ,
+    mut app_state_next_state: ResMut<NextState<AppState>>,
+    mut game_state_next_state: ResMut<NextState<GameState>>,
     asset_server: Res<AssetServer>
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
@@ -18,8 +19,9 @@ pub fn interact_with_play_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
+                game_state_next_state.set(GameState::Running);
                 app_state_next_state.set(AppState::Game);
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
             }
             Interaction::Hovered => {
                 image.texture = asset_server.load("mainmenu/buttonhover.png").into();
@@ -47,7 +49,7 @@ pub fn interact_with_quit_button(
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
                 app_exit_event_writer.send(AppExit);
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
             }
             Interaction::Hovered => {
                 image.texture = hover_button;
@@ -76,7 +78,7 @@ pub fn interact_with_options_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
             }
             Interaction::Hovered => {
                 image.texture = hover_button;
@@ -105,7 +107,7 @@ pub fn interact_with_credit_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                play_menu_click_sound(commands, asset_server);
+                play_menu_click_sound(&mut commands, asset_server);
             }
             Interaction::Hovered => {
                 image.texture = hover_button;

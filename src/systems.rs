@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{AppState, game::GameState};
+use crate::{AppState, game::GameState, player::Player};
 
 pub fn transistion_to_game_state(
     mut commands: Commands,
@@ -55,5 +55,23 @@ pub fn toggle_simulation(
             println!("The game is running");
             }
         }
+    }
+}
+
+pub fn toggle_death(
+    mut commands: Commands,
+    game_state: Res<State<GameState>>,
+    app_state: Res<State<AppState>>,
+    player_query: Query<Entity, With<Player>>
+)
+{
+    commands.insert_resource(NextState(Some(GameState::Dead)));
+    despawn_player(commands, player_query);
+    println!("You died");
+}
+
+pub fn despawn_player(mut commands: Commands, player_query: Query<Entity, With<Player>>){
+    if let Ok(player_entity) = player_query.get_single(){
+        commands.entity(player_entity).despawn_recursive();
     }
 }

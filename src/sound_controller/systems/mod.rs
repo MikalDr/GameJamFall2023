@@ -7,7 +7,7 @@
 
 use bevy::{prelude::*, audio::PlaybackMode};
 
-pub fn play_menu_click_sound(mut commands: Commands, asset_server: Res<AssetServer>){
+pub fn play_menu_click_sound(commands: &mut Commands, asset_server: Res<AssetServer>){
     commands.spawn(AudioBundle {
         source: asset_server.load("sounds/menu_click.ogg"),
         settings: PlaybackSettings { 
