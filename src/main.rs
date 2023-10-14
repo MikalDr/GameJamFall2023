@@ -4,8 +4,13 @@ mod systems;
 mod platformer;
 mod pausemenu;
 mod game;
+mod sound_controller;
 
 use bevy::prelude::*;
+use sound_controller::SoundPlugin;
+use systems::*;
+use bevy_ecs_ldtk::LdtkPlugin;
+use bevy_rapier2d::prelude::*;
 use main_menu::MainMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
@@ -30,6 +35,9 @@ fn main() {
                 //MainMenuPlugin, //MainMenu
                 //GamePlugin, //GameLogic
                 PlatformerPlugin,
+                MainMenuPlugin,
+                SoundPlugin, //MainMenu
+                GamePlugin, //GameLogic
             )
         )
         .run();

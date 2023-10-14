@@ -5,6 +5,8 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
+use crate::game::GameState;
+
 use super::components::*;
 
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -16,6 +18,9 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         ldtk_handle,
         ..Default::default()
     });
+
+    //Starts game time, do not shoot this
+    start_game_time(commands);
 }
 
 
@@ -470,4 +475,8 @@ pub fn is_position_within_level(
     }
 
     return None;
+}
+
+pub fn start_game_time(mut commands: Commands){
+    commands.insert_resource(NextState(Some(GameState::Running)));
 }
