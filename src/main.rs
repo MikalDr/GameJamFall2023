@@ -3,11 +3,12 @@ use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
 use main_menu::MainMenuPlugin;
-use game::{level_controller::LevelControllerPlugin, platformer::PlatformerPlugin};
+use game::{level_controller::LevelControllerPlugin, platformer::PlatformerPlugin, GamePlugin};
 
 mod game;
 mod main_menu;
 mod utils;
+mod systems;
 
 
 
@@ -23,12 +24,15 @@ fn main() {
             }) // Window stuff
             .set(ImagePlugin::default_nearest()) // Prevents blurry pics?
         )
+        .add_state::<AppState>()
         .add_plugins(
             (
                 //MainMenuPlugin,
                 //LevelControllerPlugin
                 //LevelControllerPlugin,
                 PlatformerPlugin,
+                MainMenuPlugin, //MainMenu
+                GamePlugin, //GameLogic
             )
         )
         /*

@@ -1,10 +1,12 @@
 use bevy::{prelude::*, app::AppExit};
 
-use crate::{main_menu::components::*, AppState};
+use crate::{game::GameState, AppState};
 
-pub fn interact_with_play_button(
-    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<PlayButton>)>,
-     mut app_state_next_state: ResMut<NextState<AppState>> ,asset_server: Res<AssetServer>
+use super::layouts::{ResumeButton, ReturnButton};
+
+pub fn interact_with_resume_button(
+    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ResumeButton>)>,
+     mut game_state_next_state: ResMut<NextState<GameState>> ,asset_server: Res<AssetServer>
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
     let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
@@ -16,7 +18,7 @@ pub fn interact_with_play_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                app_state_next_state.set(AppState::Game);
+                game_state_next_state.set(GameState::Running);
             }
             Interaction::Hovered => {
                 image.texture = asset_server.load("mainmenu/buttonhover.png").into();
@@ -28,9 +30,9 @@ pub fn interact_with_play_button(
     }
 }
 
-pub fn interact_with_quit_button(
-    mut app_exit_event_writer: EventWriter<AppExit>,
-    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<QuitButton>)>, asset_server: Res<AssetServer>
+pub fn interact_with_return_button(
+    mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ReturnButton>)>, asset_server: Res<AssetServer>,
+    mut app_state_next_state: ResMut<NextState<AppState>>
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
     let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
@@ -41,7 +43,7 @@ pub fn interact_with_quit_button(
             Interaction::Pressed => {
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
-                app_exit_event_writer.send(AppExit);
+                app_state_next_state.set(AppState::MainMenu);
             }
             Interaction::Hovered => {
                 image.texture = hover_button;
