@@ -610,9 +610,10 @@ pub fn jump_scare(
 }
 
 
-pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, l: Res<HasLost>) {
-    if l.0 {
+pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, t: Res<JumpScareEventTimer>) {
+    if t.0.finished() {
         game_state.set(GameState::Lost);
+        println!("YOU LOST");
     }
 }
 
