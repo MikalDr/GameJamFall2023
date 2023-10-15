@@ -601,9 +601,7 @@ pub fn camera_follow(
 pub struct HasLost(pub bool);
 
 pub fn jump_scare(
-    mut cmd: Commands,
     time: Res<JumpScareTime>,
-    asset_server: Res<AssetServer>,
     mut l: ResMut<HasLost>
 ) {
     if time.0.finished() {
@@ -620,5 +618,11 @@ pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, l: Res<HasLost>) {
 
 
 pub fn timer(t: Res<JumpScareTime>) {
-    println!("Time: {:?}", t.0.elapsed_secs());
+    println!("Jump Scare Timer: {:?}", t.0.elapsed_secs());
+}
+
+pub fn timer_1(t: Res<JumpScareEventTimer>, l: Res<HasLost>) {
+    if l.0 {
+        println!("Jump Scare Event Timer: {:?}", t.0.elapsed_secs());
+    }
 }

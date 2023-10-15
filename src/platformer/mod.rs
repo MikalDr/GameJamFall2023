@@ -66,7 +66,7 @@ impl Plugin for PlatformerPlugin {
         })
         .insert_resource(HasLost(false))
         .insert_resource(Scare(false))
-        .insert_resource(JumpScareEventTimer(Timer::from_seconds(10.0, TimerMode::Once)))
+        .insert_resource(JumpScareEventTimer(Timer::from_seconds(3.0, TimerMode::Once)))
         .add_systems(Update, has_lost)
         .add_systems(Update, movement)
         .add_systems(Update, jump_scare)
@@ -86,9 +86,10 @@ impl Plugin for PlatformerPlugin {
         .register_ldtk_entity::<PlayerBundle>("Player")
         .add_systems(Update, camera_follow)
         .add_systems(Update, timer.run_if(in_state(GameState::Running)))
+        .add_systems(Update, timer_1)
         .add_systems(Update, tick_timer.run_if(in_state(GameState::Running).and_then(in_state(AppState::Game))))
-        .add_systems(Update, tick_event_timer.run_if(in_state(GameState::Running).and_then(in_state(AppState::Game))))
-        .add_systems(Update, scare.run_if(in_state(GameState::Running).and_then(in_state(AppState::Game))))
+        .add_systems(Update, tick_event_timer)
+        .add_systems(Update, scare)
         .add_systems(Update, invert_controls)
         .add_systems(Update, non_stop_movement);
         
@@ -137,9 +138,8 @@ pub fn tick_event_timer(mut t: ResMut<JumpScareEventTimer>, time: Res<Time>, l: 
 
 
 pub fn scare(mut cmd: Commands, asset_server: Res<AssetServer>, s: Res<Scare>) {
-    if !s.0 {
-        return;
+    if s.0 {
+        println!("SCARE!");
     }
 
-    println!("SCARE!");
 }
