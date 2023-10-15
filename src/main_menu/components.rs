@@ -14,3 +14,6 @@ pub struct OptionsButton {}
 
 #[derive(Component)]
 pub struct CreditsButton {}
+
+#[derive(Component)]
+pub struct HTPButton {}
