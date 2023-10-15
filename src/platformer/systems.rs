@@ -54,7 +54,6 @@ pub fn movement(
 
 pub fn invert_controls(mut controls: ResMut<Controls>)
 {
-    
     controls.right = KeyCode::A;
     controls.left = KeyCode::D;
 }
