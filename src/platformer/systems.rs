@@ -622,26 +622,13 @@ pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, t: Res<JumpScareEv
 
 pub fn timer(
     t: Res<JumpScareTime>,
-    mut time_text_query: Query<&Text, With<TimerText>>,
-    asset_server: Res<AssetServer>
+    mut time_text_query: Query<&mut Text, With<TimerText>>
 ) {
 
     if let Ok(mut txt) = time_text_query.get_single_mut() {
-        let text = Text {
-            sections: vec![
-                TextSection::new(String::from(((t.0.elapsed_secs() - MAX_TIME_SECONDS) as i32).to_string())
-                , 
-                TextStyle {
-                    font: asset_server.load("upheavtt.ttf"),
-                    font_size: 45.0,
-                    color: Color::WHITE.into(),
-                })
-            ],
-            alignment: TextAlignment::Center,
-            ..default()
-        };
+        
+        txt.sections[0].value = format!("{}", String::from(((MAX_TIME_SECONDS - t.0.elapsed_secs()) as i32).to_string()));
 
-        txt = &text;
 
         println!("Jump Scare Timer: {:?}", txt.sections.get(0));
     }
