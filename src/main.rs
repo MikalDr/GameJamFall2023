@@ -62,7 +62,7 @@ fn main() {
                 GamePlugin, //GameLogic
             )
         )
-        .add_plugins(WorldInspectorPlugin::new()) // Debug
+        //.add_plugins(WorldInspectorPlugin::new()) // Debug
         .run();
 }
 
