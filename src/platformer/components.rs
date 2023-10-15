@@ -94,3 +94,8 @@ pub struct AnimationIndices {
 pub struct AnimationTimer {
     pub timer: Timer,
 }
+
+
+pub struct Item {
+    
+}
