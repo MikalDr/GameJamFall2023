@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::Player};
+use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::{Player, systems::ActivePlayerEffects}};
 
 use super::components::*;
 
@@ -69,13 +69,17 @@ pub fn movement(
     }
 }
 
-pub fn invert_controls(mut controls: ResMut<Controls>)
+pub fn invert_controls(mut controls: ResMut<Controls>, active_player_effects : Res<ActivePlayerEffects>)
 {
-    controls.right = KeyCode::A;
-    controls.left = KeyCode::D;
+    if(active_player_effects.invert){
+        controls.right = KeyCode::A;
+        controls.left = KeyCode::D;
+    }
 }
-pub fn non_stop_movement(mut controls: ResMut<Controls>){
-    controls.non_stop_move = true;
+pub fn non_stop_movement(mut controls: ResMut<Controls>, active_player_effects : Res<ActivePlayerEffects>){
+    if (active_player_effects.continous_move) {
+        controls.non_stop_move = true;
+    }
 }
 
 /// Spawns heron collisions for the walls of a level
