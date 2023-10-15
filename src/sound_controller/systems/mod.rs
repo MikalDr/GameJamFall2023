@@ -29,7 +29,7 @@ pub fn play_jump_sound(commands: &mut Commands, asset_server: &Res<AssetServer>)
     });
 }
 
-pub fn play_pickup_sound(commands: &mut Commands, asset_server: &Res<AssetServer>){
+pub fn play_pickup_sound(mut commands: Commands, asset_server: Res<AssetServer>){
     commands.spawn(AudioBundle {
         source: asset_server.load("sounds/pickup.ogg"),
         settings: PlaybackSettings { 
