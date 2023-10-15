@@ -23,6 +23,12 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     start_game_time(commands);
 }
 
+#[derive(Resource)]
+pub struct Controls {
+    pub right: KeyCode,
+    pub left: KeyCode,
+    pub jump: KeyCode
+}
 
 // This is not good
 pub fn movement(
@@ -30,19 +36,26 @@ pub fn movement(
     asset_server: Res<AssetServer>,
     input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Velocity, &GroundDetection), With<Player>>,
+    controls: Res<Controls>
 ) {
     for (mut velocity, ground_detection) in &mut query {
-        let right = if input.pressed(KeyCode::D) { 1. } else { 0. };
-        let left = if input.pressed(KeyCode::A) { 1. } else { 0. };
+        let right = if input.pressed(controls.right) { 1. } else { 0. };
+        let left = if input.pressed(controls.left) { 1. } else { 0. };
 
         velocity.linvel.x = (right - left) * 200.;
 
         // Jumping
-        if input.just_pressed(KeyCode::Space) && (ground_detection.on_ground) {
+        if input.just_pressed(controls.jump) && (ground_detection.on_ground) {
             play_jump_sound(&mut commands, &asset_server);
             velocity.linvel.y = 500.;
         }
     }
+}
+
+pub fn invert_controls(mut controls: ResMut<Controls>)
+{
+    controls.right = KeyCode::A;
+    controls.left = KeyCode::D;
 }
 
 /// Spawns heron collisions for the walls of a level
@@ -468,14 +481,14 @@ pub fn is_position_within_level(
         if let Ok((camera, transform)) = camera_query.get_single() {
             let min: UVec2 = (camera.physical_viewport_rect()?).0;
             let max: UVec2 = (camera.physical_viewport_rect()?).1;
-            let player_transform = camera.world_to_viewport(transform, player_translation)?;
+            //let player_transform = camera.world_to_viewport(transform, player_translation)?;
 
             //println!("{:?} {:?} {:?} ", min, max, player_transform);
 
-            if(player_transform.x < min.x as f32 || player_transform.x >= max.x as f32){
+            /*if(player_transform.x < min.x as f32 || player_transform.x >= max.x as f32){
                 return Some(true)
-            }
-            if(player_transform.y < min.y as f32 || player_transform.y > max.y as f32){
+            }*/
+            if(player_translation.y < -350.0 || player_translation.y > max.y as f32){
                 return Some(true)
             }
             return Some(false)
@@ -531,6 +544,27 @@ pub fn process_my_entity(
         }
     }
 }
+pub fn camera_follow(
+    players: Query<&Transform, With<Player>>,
+    mut camera_query: Query<
+        (
+            &mut bevy::render::camera::OrthographicProjection,
+            &mut Transform,
+        ),
+        Without<Player>,
+    >,
+) 
+{
+    if let Ok(player_transform) = players.get_single() {
+        let pos = player_transform.translation;
+    
+        if let (mut _orthographic_projection, mut camera_transform) = camera_query.single_mut(){
+                camera_transform.translation.x = pos.x;
+                camera_transform.translation.y = pos.y;
+        }
+    }
+}
+
 
 
 

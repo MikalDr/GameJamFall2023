@@ -55,6 +55,11 @@ impl Plugin for PlatformerPlugin {
         //.add_systems(Startup, apply_player_sprite)
         //.add_systems(Update, player_debug)
         .add_systems(Update, animate_sprite)
+        .insert_resource(Controls{
+            right: KeyCode::D,
+            left: KeyCode::A,
+            jump: KeyCode::Space,
+        })
         .add_systems(Update, movement)
         //.add_systems(Update, camera_fit_inside_current_level)
         //.add_systems(Update, update_level_selection)
@@ -68,14 +73,23 @@ impl Plugin for PlatformerPlugin {
         .register_ldtk_int_cell::<components::WallBundle>(3)
         .register_ldtk_entity::<ItemBundle>("Item")
         .register_ldtk_entity::<WinItemBundle>("WinCon")
-        .register_ldtk_entity::<PlayerBundle>("Player");
+        .register_ldtk_entity::<PlayerBundle>("Player")
+        .add_systems(Update, camera_follow);
         
         
     }
 }
 
 pub fn spawn_camera(mut commands: Commands){
-    let camera = (Camera2dBundle::default(), WorldCamera{});
+    let camera = (Camera2dBundle
+        {
+        transform: Transform{
+            scale: Vec3{x:0.5,y:0.5,z:0.5},
+            ..default()
+        },
+        ..default()
+        }
+        ,WorldCamera{});
     commands.spawn(camera);
 }
 

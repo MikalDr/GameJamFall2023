@@ -76,7 +76,7 @@ pub fn toggle_death(
 
 pub fn move_player_in_death(mut hasDied: ResMut<HasPlayerDied>,mut player_query: Query<&mut Transform, With<Player>>, spawn_loc : Res<SpawnLocation>){
     if let Ok(mut player_entity) = player_query.get_single_mut(){
-        println!("HasDied: {}, playerPos: {:?}, spawnPos {:?}", hasDied.died, player_entity.translation, spawn_loc.pos);
+        //println!("HasDied: {}, playerPos: {:?}, spawnPos {:?}", hasDied.died, player_entity.translation, spawn_loc.pos);
         if(hasDied.died){
         player_entity.translation = spawn_loc.pos;
         hasDied.died = false;
