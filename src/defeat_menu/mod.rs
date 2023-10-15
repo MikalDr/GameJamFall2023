@@ -11,7 +11,7 @@ pub struct DefeatMenuPlugin;
 impl Plugin for DefeatMenuPlugin {
     fn build(&self, app: &mut App) {
         app
-        .add_systems(OnEnter(GameState::Victory), spawn_defeat_menu)
-        .add_systems(OnExit(GameState::Victory), despawn_defeat_menu);
+        .add_systems(OnEnter(GameState::Lost), spawn_defeat_menu)
+        .add_systems(OnExit(GameState::Lost), despawn_defeat_menu);
     }
 }

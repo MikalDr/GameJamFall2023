@@ -12,8 +12,8 @@ impl Plugin for SoundPlugin {
     fn build(&self, app: &mut App) {
         app
             .add_systems(Update, piss)
-            .add_systems(OnEnter(AppState::MainMenu), main_menu_music)
-            .add_systems(OnExit(AppState::MainMenu), despawn_main_menu_music)
+            .add_systems(Startup, main_menu_music)
+            .add_systems(OnEnter(AppState::Game), despawn_main_menu_music)
             .add_systems(OnEnter(AppState::Game), game_music)
             .add_systems(OnExit(AppState::Game), game_music_pause);
     }
