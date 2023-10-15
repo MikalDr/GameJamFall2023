@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_ecs_ldtk::LdtkLevel;
 
 use crate::{systems::toggle_simulation, pausemenu::PauseMenuPlugin, platformer::systems::is_position_within_level, AppState, player::Player};
 use crate::{systems::toggle_death, platformer::systems::WorldCamera};
@@ -37,7 +38,8 @@ pub fn kill_conditions_player(
     player_query: Query<&Transform, With<Player>>,
     game_state: Res<State<GameState>>,
     app_state: Res<State<AppState>>,
-    player_entity_query: Query<Entity, With<Player>>
+    player_entity_query: Query<Entity, With<Player>>,
+    level_query: Query<Entity, With<Handle<LdtkLevel>>>,
 ) {
     println!("{:?} {:?}", game_state.get(), app_state.get());
     if game_state.get() == &GameState::Running && app_state.get() == &AppState::Game {
@@ -45,7 +47,7 @@ pub fn kill_conditions_player(
         // Kills player if outside screen
         if let Some(res) = is_position_within_level(camera_query, player_query) {
             if res {
-                toggle_death(cmd, game_state, app_state, player_entity_query);
+                toggle_death(cmd, game_state, app_state, level_query, player_entity_query);
                 println!("you dieded");
             }
         }

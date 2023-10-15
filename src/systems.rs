@@ -1,6 +1,7 @@
 use bevy::prelude::*;
+use bevy_ecs_ldtk::LdtkLevel;
 
-use crate::{AppState, game::GameState, player::Player};
+use crate::{AppState, game::GameState, player::Player, platformer::systems::restart_level};
 
 pub fn transistion_to_game_state(
     mut commands: Commands,
@@ -62,15 +63,17 @@ pub fn toggle_death(
     mut commands: Commands,
     game_state: Res<State<GameState>>,
     app_state: Res<State<AppState>>,
+    level_query: Query<Entity, With<Handle<LdtkLevel>>>,
     player_query: Query<Entity, With<Player>>
 )
 {
     commands.insert_resource(NextState(Some(GameState::Dead)));
-    despawn_player(commands, player_query);
+    despawn_player(&mut commands, player_query);
+    restart_level(commands, level_query);
     println!("You died");
 }
 
-pub fn despawn_player(mut commands: Commands, player_query: Query<Entity, With<Player>>){
+pub fn despawn_player(commands: &mut Commands, player_query: Query<Entity, With<Player>>){
     if let Ok(player_entity) = player_query.get_single(){
         commands.entity(player_entity).despawn_recursive();
     }
