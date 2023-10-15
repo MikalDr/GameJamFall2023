@@ -5,6 +5,8 @@ use std::{collections::HashSet, str::FromStr};
 use thiserror::Error;
 use bevy_rapier2d::prelude::*;
 
+use crate::game::{GameState, self};
+
 #[derive(Clone, Debug, Default, Bundle, LdtkIntCell)]
 pub struct ColliderBundle {
     pub collider: Collider,
@@ -157,8 +159,9 @@ pub fn check_win_con(wc: Res<WinCon>, mut win: ResMut<HasWon>) {
 }
 
 /// TODO: Add win logic here, @Mikal
-pub fn has_won(win: Res<HasWon>) {
+pub fn has_won(win: Res<HasWon>, mut game_state_next: ResMut<NextState<GameState>>) {
     if win.0 {
+        game_state_next.set(GameState::Victory);
         println!("YOU WON!");
     }
 }

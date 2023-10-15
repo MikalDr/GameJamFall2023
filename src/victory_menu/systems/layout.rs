@@ -11,8 +11,8 @@ pub fn spawn_victory_menu(mut commands: Commands, asset_server: Res<AssetServer>
 }
 
 pub fn despawn_victory_menu(mut commands: Commands, victory_menu_query: Query<Entity, With<VictoryMenu>>){
-    if let Ok(credits_menu_entity) = victory_menu_query.get_single(){
-        commands.entity(credits_menu_entity).despawn_recursive();
+    if let Ok(victory_menu_entity) = victory_menu_query.get_single(){
+        commands.entity(victory_menu_entity).despawn_recursive();
     }
 }
 
@@ -74,7 +74,7 @@ pub fn build_victory_menu(commands: &mut Commands, asset_server: Res<AssetServer
                 });
 
             // == Return ==
-            parent.spawn(
+            /*parent.spawn(
                 (ButtonBundle {
                     style: Style {
                         height: Val::Px(80.0),
@@ -108,7 +108,7 @@ pub fn build_victory_menu(commands: &mut Commands, asset_server: Res<AssetServer
                         ..default()
                     }
                 );
-            });
+            });*/
             // == Quit Button ==
             parent.spawn(
                 (ButtonBundle {
