@@ -9,12 +9,15 @@ mod options_menu;
 mod death_screen;
 mod credits_menu;
 mod victory_menu;
+mod defeat_menu;
 
 mod game;
 mod sound_controller;
+mod timer;
 
 use bevy::prelude::*;
 use credits_menu::CreditsMenuPlugin;
+use defeat_menu::DefeatMenuPlugin;
 use sound_controller::SoundPlugin;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
@@ -24,6 +27,7 @@ use death_screen::DeathMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use timer::TimerPlugin;
 use victory_menu::{systems::layout::VictoryMenu, VictoryMenuPlugin};
 
 
@@ -50,7 +54,8 @@ fn main() {
                 DeathMenuPlugin,
                 CreditsMenuPlugin,
                 VictoryMenuPlugin,
-                
+                DefeatMenuPlugin,
+                TimerPlugin,
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic
             )

@@ -81,6 +81,10 @@ pub fn non_stop_movement(mut controls: ResMut<Controls>, active_player_effects :
     }
 }
 
+pub fn moon_gravity(mut rapier_config: ResMut<RapierConfiguration>){
+    rapier_config.gravity = Vec2::new(0.0, -1000.0)
+}
+
 /// Spawns heron collisions for the walls of a level
 ///
 /// You could just insert a ColliderBundle in to the WallBundle,

@@ -29,6 +29,7 @@ impl Plugin for GamePlugin {
             continous_move: false,
             rotating_world: false,
             moon_gravity: false,
+            rotate_gravity: false,
         })
         .insert_resource(HasPlayerDied{died: false})
         .add_systems(Update, kill_conditions_player)
@@ -57,9 +58,9 @@ pub fn kill_conditions_player(
     game_state: Res<State<GameState>>,
     app_state: Res<State<AppState>>,
     level_query: Query<Entity, With<Handle<LdtkLevel>>>,
-    has_died : ResMut<HasPlayerDied>
+    has_died : ResMut<HasPlayerDied>,
 ) {
-    println!("{:?} {:?}", game_state.get(), app_state.get());
+    //println!("{:?} {:?}", game_state.get(), app_state.get());
     if game_state.get() == &GameState::Running && app_state.get() == &AppState::Game {
         
         // Kills player if outside screen
