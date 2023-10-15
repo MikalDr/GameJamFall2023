@@ -12,12 +12,10 @@ mod victory_menu;
 
 mod game;
 mod sound_controller;
-mod status_effects;
 
 use bevy::prelude::*;
 use credits_menu::CreditsMenuPlugin;
 use sound_controller::SoundPlugin;
-use status_effects::EffectPlugin;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
 use bevy_rapier2d::prelude::*;
@@ -55,7 +53,6 @@ fn main() {
                 
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic
-                EffectPlugin,
             )
         )
         .add_plugins(WorldInspectorPlugin::new()) // Debug
