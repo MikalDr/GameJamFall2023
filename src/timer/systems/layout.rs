@@ -5,6 +5,9 @@ use crate::{pausemenu::systems::layouts::ReturnButton, main_menu::components::Qu
 #[derive(Component)]
 pub struct TimerHud {}
 
+#[derive(Component)]
+pub struct TimerText {}
+
 pub fn spawn_timer(mut commands: Commands, asset_server: Res<AssetServer>){
     println!("Timer spawned");
     let _victory_menu_entity = build_timer(&mut commands, asset_server);
@@ -63,7 +66,7 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
                         }
                     )*/
                     // == Text ==
-                    parent.spawn(
+                    parent.spawn((
                         TextBundle {
                             text: Text{
                                 sections: vec![
@@ -78,7 +81,8 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
                                 ..default()
                             },
                             ..default()
-                        }
+                        }, 
+                        TimerText {})
                     );
                 });
         })

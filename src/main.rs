@@ -5,7 +5,6 @@ mod player;
 // == Menues ==
 mod main_menu;
 mod pausemenu;
-mod options_menu;
 mod death_screen;
 mod credits_menu;
 mod victory_menu;
@@ -73,4 +72,5 @@ pub enum AppState {
     Options,
     Game,
     GameOver,
+    HowToPlay,
 }
