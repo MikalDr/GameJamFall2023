@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::{Player, systems::ActivePlayerEffects}};
+use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::{Player, systems::ActivePlayerEffects, components::{JumpScareTime, JumpScareEventTimer}}};
 
 use super::components::*;
 
@@ -597,5 +597,32 @@ pub fn camera_follow(
 }
 
 
+#[derive(Resource)]
+pub struct HasLost(pub bool);
+
+pub fn jump_scare(
+    time: Res<JumpScareTime>,
+    mut l: ResMut<HasLost>
+) {
+    if time.0.finished() {
+        l.0 = true;
+    }
+}
 
 
+pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, l: Res<HasLost>) {
+    if l.0 {
+        game_state.set(GameState::Lost);
+    }
+}
+
+
+pub fn timer(t: Res<JumpScareTime>) {
+    println!("Jump Scare Timer: {:?}", t.0.elapsed_secs());
+}
+
+pub fn timer_1(t: Res<JumpScareEventTimer>, l: Res<HasLost>) {
+    if l.0 {
+        println!("Jump Scare Event Timer: {:?}", t.0.elapsed_secs());
+    }
+}

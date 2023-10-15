@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::platformer::{components::{Item, WinItem, WinCon, ItemType}, systems::{invert_controls, Controls}};
+use crate::{platformer::{components::{Item, WinItem, WinCon, ItemType}, systems::{invert_controls, Controls}}, sound_controller::systems::play_pickup_sound};
 
 use super::{components::Inventory, Player};
 
@@ -18,7 +18,8 @@ pub fn pick_up_item(
     item_query: Query<(Entity, &GlobalTransform, &ItemType)>,
     player_query: Query<&GlobalTransform, With<Player>>,
     mut inventory: ResMut<Inventory>,
-    mut cmd: Commands
+    mut cmd: Commands,
+    asset_server: Res<AssetServer>
 ) {
     if input.just_pressed(KeyCode::E) {
         if let Ok(trans) = player_query.get_single() {
@@ -28,10 +29,15 @@ pub fn pick_up_item(
                 if item_trans.compute_transform().translation.distance(trans.compute_transform().translation) >= 15.0 {
                     continue;
                 }
-            
-                inventory.inventory.push(item.clone());
 
+                
+                inventory.inventory.push(item.clone());
+                
                 cmd.entity(e).despawn();
+
+                play_pickup_sound(cmd, asset_server);
+
+                return;
             }
         }
     }

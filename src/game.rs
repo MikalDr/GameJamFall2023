@@ -48,6 +48,7 @@ pub enum GameState {
     Paused,
     Victory,
     Dead,
+    Lost
 }
 
 
