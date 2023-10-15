@@ -187,4 +187,6 @@ pub struct WinItemBundle {
     pub item: WinItem,
     #[sprite_bundle("trophy.png")]
     pub sprite_bundle: SpriteBundle,
+    #[with(ItemType::from_field)]
+    pub item_type: ItemType,
 }

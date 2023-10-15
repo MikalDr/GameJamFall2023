@@ -40,21 +40,22 @@ pub fn check_inv(inv: Res<Inventory>) {
 
 pub fn pick_up_win(
     input: Res<Input<KeyCode>>,
-    item_query: Query<(Entity, &GlobalTransform), With<WinItem>>,
+    item_query: Query<(Entity, &GlobalTransform, &ItemType), With<WinItem>>,
     player_query: Query<&GlobalTransform, With<Player>>,
     mut wc: ResMut<WinCon>,
-    mut cmd: Commands
+    mut cmd: Commands,
+    mut inv: ResMut<Inventory>
 ) {
     if input.just_pressed(KeyCode::E) {
         if let Ok(trans) = player_query.get_single() {
-            for (e, item_trans) in item_query.iter() {
+            for (e, item_trans, it) in item_query.iter() {
 
 
                 if item_trans.compute_transform().translation.distance(trans.compute_transform().translation) >= 15.0 {
                     continue;
                 }
             
-
+                inv.inventory.push(it.clone());
 
                 cmd.entity(e).despawn();
 

@@ -3,8 +3,6 @@ use bevy_ecs_ldtk::prelude::*;
 
 use crate::platformer::components::{ColliderBundle, GroundDetection};
 
-use self::components::Inventory;
-
 pub mod systems;
 
 pub mod components;

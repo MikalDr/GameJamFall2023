@@ -11,7 +11,7 @@
 	"iid": "e8e31440-6280-11ee-b380-67c3c787d075",
 	"jsonVersion": "1.4.1",
 	"appBuildId": 471015,
-	"nextUid": 20,
+	"nextUid": 21,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -274,7 +274,43 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "ItemType",
+					"doc": null,
+					"__type": "LocalEnum.ItemType",
+					"uid": 20,
+					"type": "F_Enum(17)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -738,7 +774,10 @@
 							"height": 12,
 							"defUid": 19,
 							"px": [288,204],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "ItemType", "__type": "LocalEnum.ItemType", "__value": "ItemType0", "__tile": null, "defUid": 20, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ItemType0"]
+							}] }]
 						}
 					]
 				},
@@ -954,7 +993,29 @@
 							"height": 12,
 							"defUid": 19,
 							"px": [60,204],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "ItemType", "__type": "LocalEnum.ItemType", "__value": "ItemType1", "__tile": null, "defUid": 20, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ItemType1"]
+							}] }]
+						},
+						{
+							"__identifier": "WinCon",
+							"__grid": [10,6],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"__worldX": -408,
+							"__worldY": -132,
+							"iid": "50d8bea0-6280-11ee-929e-5f3f2cee0281",
+							"width": 12,
+							"height": 12,
+							"defUid": 19,
+							"px": [120,72],
+							"fieldInstances": [{ "__identifier": "ItemType", "__type": "LocalEnum.ItemType", "__value": "ItemType0", "__tile": null, "defUid": 20, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ItemType0"]
+							}] }]
 						}
 					]
 				},
@@ -1134,7 +1195,10 @@
 							"height": 12,
 							"defUid": 19,
 							"px": [72,84],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "ItemType", "__type": "LocalEnum.ItemType", "__value": "ItemType2", "__tile": null, "defUid": 20, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ItemType2"]
+							}] }]
 						}
 					]
 				},
