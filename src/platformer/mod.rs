@@ -66,7 +66,7 @@ impl Plugin for PlatformerPlugin {
         })
         .insert_resource(HasLost(false))
         .insert_resource(Scare(false))
-        .insert_resource(JumpScareEventTimer(Timer::from_seconds(3.0, TimerMode::Once)))
+        .insert_resource(JumpScareEventTimer(Timer::from_seconds(5.0, TimerMode::Once)))
         .add_systems(Update, has_lost)
         .add_systems(Update, movement)
         .add_systems(Update, jump_scare)
@@ -137,9 +137,30 @@ pub fn tick_event_timer(mut t: ResMut<JumpScareEventTimer>, time: Res<Time>, l: 
 }
 
 
-pub fn scare(mut cmd: Commands, asset_server: Res<AssetServer>, s: Res<Scare>) {
-    if s.0 {
-        println!("SCARE!");
-    }
+#[derive(Component)]
+pub struct JumpScareSound;
 
+pub fn scare(mut cmd: Commands, asset_server: Res<AssetServer>, s: Res<HasLost>) {
+    if s.0 {
+        cmd.spawn(
+            (
+                AudioBundle {
+                    source: asset_server.load("sounds/jumpscare.ogg"),
+                    ..Default::default()
+                },
+                JumpScareSound
+            )
+        );
+
+        cmd.spawn(
+            SpriteBundle {
+                texture: asset_server.load("shoes.png"),
+                sprite: Sprite {
+                    custom_size: Some(Vec2 { x: 500., y: 500. }),
+                    ..default()
+                },
+                transform: Transform::from_xyz(0.0, 0.0, 10.),
+                ..default()
+        });
+    }
 }
