@@ -7,7 +7,7 @@ pub struct HTPMenu {}
 
 pub fn spawn_htp_menu(mut commands: Commands, asset_server: Res<AssetServer>){
     println!("Entered HowToPlay menu");
-    let _credits_menu_entity = build_credits_menu(&mut commands, asset_server);
+    let _htp_menu_entity = build_htp_menu(&mut commands, asset_server);
 }
 
 pub fn despawn_htp_menu(mut commands: Commands, htp_menu_query: Query<Entity, With<HTPMenu>>){
@@ -16,9 +16,9 @@ pub fn despawn_htp_menu(mut commands: Commands, htp_menu_query: Query<Entity, Wi
     }
 }
 
-pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer>) -> Entity{
+pub fn build_htp_menu(commands: &mut Commands, asset_server: Res<AssetServer>) -> Entity{
     let credits_menu_entity = commands.spawn(
-        (NodeBundle {
+        (ImageBundle {
                 style: Style {
                     flex_direction: FlexDirection::Column,
                     justify_content: JustifyContent::Center,
@@ -28,7 +28,8 @@ pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer
                     height: Val::Percent(100.0),
                     ..default()
                 },
-                background_color: Color::BLACK.into(),
+                //background_color: Color::BLACK.into(),
+                image: asset_server.load("htp.png").into(),
                 ..default()
             },
             HTPMenu {},
@@ -58,7 +59,7 @@ pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer
                         TextBundle {
                             text: Text{
                                 sections: vec![
-                                    TextSection::new("How To Play", 
+                                    TextSection::new("", 
                                     TextStyle {
                                         font: asset_server.load("upheavtt.ttf"),
                                         font_size: 40.0,
@@ -90,7 +91,7 @@ pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer
                             TextBundle {
                                 text: Text{
                                     sections: vec![
-                                        TextSection::new("Collect all 7 trophies to win.", 
+                                        TextSection::new("", 
                                         TextStyle {
                                             font: asset_server.load("upheavtt.ttf"),
                                             font_size: 30.0,
@@ -121,7 +122,7 @@ pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer
                                 TextBundle {
                                     text: Text{
                                         sections: vec![
-                                            TextSection::new("You pick up throphies using E", 
+                                            TextSection::new("", 
                                             TextStyle {
                                                 font: asset_server.load("upheavtt.ttf"),
                                                 font_size: 30.0,
@@ -153,7 +154,7 @@ pub fn build_credits_menu(commands: &mut Commands, asset_server: Res<AssetServer
                                 TextBundle {
                                     text: Text{
                                         sections: vec![
-                                            TextSection::new("A - Left , D - Right", 
+                                            TextSection::new("", 
                                             TextStyle {
                                                 font: asset_server.load("upheavtt.ttf"),
                                                 font_size: 40.0,
