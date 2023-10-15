@@ -618,7 +618,7 @@ pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, t: Res<JumpScareEv
 }
 
 
-pub fn timer(t: Res<JumpScareTime>) {
+pub fn timer(t: Res<JumpScareTime>, time_text_query: Query<&Text, With<TimerText>>) {
     println!("Jump Scare Timer: {:?}", t.0.elapsed_secs());
 }
 

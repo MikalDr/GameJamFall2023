@@ -1,4 +1,4 @@
-use bevy::{prelude::*, ecs::system::Spawn};
+use bevy::{prelude::*, ecs::{system::Spawn, query}};
 use bevy_ecs_ldtk::prelude::*;
 
 use bevy_rapier2d::prelude::*;
@@ -138,29 +138,34 @@ pub fn tick_event_timer(mut t: ResMut<JumpScareEventTimer>, time: Res<Time>, l: 
 
 
 #[derive(Component)]
-pub struct JumpScareSound;
+pub struct JumpScareMonster;
 
-pub fn scare(mut cmd: Commands, asset_server: Res<AssetServer>, s: Res<HasLost>) {
-    if s.0 {
-        cmd.spawn(
-            (
-                AudioBundle {
-                    source: asset_server.load("sounds/jumpscare.ogg"),
-                    ..Default::default()
-                },
-                JumpScareSound
-            )
-        );
+pub fn scare(mut cmd: Commands, asset_server: Res<AssetServer>, s: Res<HasLost>, query: Query<&GlobalTransform, With<Player>>) {
 
-        cmd.spawn(
-            SpriteBundle {
-                texture: asset_server.load("shoes.png"),
-                sprite: Sprite {
-                    custom_size: Some(Vec2 { x: 500., y: 500. }),
+    if let Ok(trans) = query.get_single() {
+        
+        if s.0 {
+            cmd.spawn(
+                (
+                    AudioBundle {
+                        source: asset_server.load("sounds/jumpscare.ogg"),
+                        ..Default::default()
+                    },
+                )
+            );
+
+            cmd.spawn((
+                SpriteBundle {
+                    texture: asset_server.load("jumpyface.png"),
+                    sprite: Sprite {
+                        custom_size: Some(Vec2 { x: 500., y: 500. }),
+                        ..default()
+                    },
+                    transform: Transform::from_xyz(trans.translation().x, trans.translation().y, 10.),
                     ..default()
-                },
-                transform: Transform::from_xyz(0.0, 0.0, 10.),
-                ..default()
-        });
+            }, JumpScareMonster)
+        );
+        }
     }
+
 }
