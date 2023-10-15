@@ -29,7 +29,7 @@ pub fn pick_up_item(
     }
 }
 
-
+// @Mikal
 pub fn check_inv(inv: Res<Inventory>) {
     for i in inv.inventory.iter() {
         print!("{:?}", i);
