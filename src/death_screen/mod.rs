@@ -10,9 +10,10 @@ pub struct DeathMenuPlugin;
 
 impl Plugin for DeathMenuPlugin {
     fn build(&self, app: &mut App) {
-        app
-        .add_systems(OnEnter(GameState::Dead), spawn_death_menu)
-        .add_systems(OnExit(GameState::Dead), despawn_death_menu)
-        .add_systems(Update, interact_with_retry_button);
+        app;
+        //.add_systems(OnEnter(GameState::Dead), spawn_death_menu)
+        //.add_systems(OnExit(GameState::Dead), despawn_death_menu)
+        //.add_systems(Update, interact_with_retry_button);
+        
     }
 }
