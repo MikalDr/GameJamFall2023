@@ -9,6 +9,7 @@ mod death_screen;
 mod credits_menu;
 mod victory_menu;
 mod defeat_menu;
+mod htp_menu;
 
 mod game;
 mod sound_controller;
@@ -17,6 +18,7 @@ mod timer;
 use bevy::prelude::*;
 use credits_menu::CreditsMenuPlugin;
 use defeat_menu::DefeatMenuPlugin;
+use htp_menu::HTPMenuPlugin;
 use sound_controller::SoundPlugin;
 use systems::*;
 use bevy_ecs_ldtk::LdtkPlugin;
@@ -54,6 +56,7 @@ fn main() {
                 CreditsMenuPlugin,
                 VictoryMenuPlugin,
                 DefeatMenuPlugin,
+                HTPMenuPlugin,
                 TimerPlugin,
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic

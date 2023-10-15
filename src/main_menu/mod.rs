@@ -2,7 +2,7 @@ use std::thread::spawn;
 
 use bevy::prelude::*;
 
-use self::systems::{layout::{spawn_main_menu, despawn_main_menu}, interactions::{interact_with_play_button, interact_with_quit_button, interact_with_credit_button, interact_with_options_button}};
+use self::systems::{layout::{spawn_main_menu, despawn_main_menu}, interactions::{interact_with_play_button, interact_with_quit_button, interact_with_credit_button, interact_with_options_button, interact_with_htp_button}};
 use crate::AppState;
 
 pub struct MainMenuPlugin;
@@ -20,6 +20,7 @@ impl Plugin for MainMenuPlugin {
             interact_with_quit_button, 
             interact_with_credit_button,
             interact_with_options_button,
+            interact_with_htp_button,
         ));
     }
 }
