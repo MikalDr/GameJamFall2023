@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 
 use crate::platformer::components::{ColliderBundle, GroundDetection};
-use crate::status_effects::effects::{PlayerEffects};
+use crate::status_effects::effects::Inventory;
 
 pub mod systems;
 
@@ -22,7 +22,7 @@ pub struct PlayerBundle {
     #[worldly]
     pub worldly: Worldly,
     pub ground_detection: GroundDetection,
-    pub effect: PlayerEffects,
+    pub inventory: Inventory,
 
     // The whole EntityInstance can be stored directly as an EntityInstance component
     #[from_entity_instance]
