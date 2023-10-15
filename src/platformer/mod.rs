@@ -61,6 +61,8 @@ impl Plugin for PlatformerPlugin {
             left: KeyCode::A,
             jump: KeyCode::Space,
             non_stop_move: false,
+            rx: 0.,
+            lx: 0.,
         })
         .add_systems(Update, movement)
         //.add_systems(Update, camera_fit_inside_current_level)

@@ -8,6 +8,8 @@ use super::{components::Inventory, Player};
 pub struct ActivePlayerEffects {
     pub invert : bool,
     pub continous_move: bool,
+    pub rotating_world: bool,
+    pub moon_gravity: bool,
 }
 
 pub fn pick_up_item(
@@ -40,8 +42,8 @@ pub fn check_inv(inv: Res<Inventory>, mut active_effects : ResMut<ActivePlayerEf
         match i {
             ItemType::ItemType0 => active_effects.invert = true,
             ItemType::ItemType1 => active_effects.continous_move = true,
-            ItemType::ItemType2 => {},
-            ItemType::ItemType3 => {},
+            ItemType::ItemType2 => active_effects.rotating_world = true,
+            ItemType::ItemType3 => active_effects.moon_gravity = true,
             ItemType::ItemType4 => {},
         }
     }
@@ -55,7 +57,7 @@ pub fn pick_up_win(
     mut wc: ResMut<WinCon>,
     mut cmd: Commands,
     mut inv: ResMut<Inventory>
-) {
+) { 
     if input.just_pressed(KeyCode::E) {
         if let Ok(trans) = player_query.get_single() {
             for (e, item_trans, it) in item_query.iter() {

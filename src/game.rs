@@ -27,6 +27,8 @@ impl Plugin for GamePlugin {
         .insert_resource(ActivePlayerEffects{
             invert : false,
             continous_move: false,
+            rotating_world: false,
+            moon_gravity: false,
         })
         .insert_resource(HasPlayerDied{died: false})
         .add_systems(Update, kill_conditions_player)

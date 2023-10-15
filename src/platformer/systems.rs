@@ -28,6 +28,8 @@ pub struct Controls {
     pub right: KeyCode,
     pub left: KeyCode,
     pub jump: KeyCode,
+    pub rx: f32,
+    pub lx: f32,
 
     pub non_stop_move: bool,
 }
@@ -38,28 +40,25 @@ pub fn movement(
     asset_server: Res<AssetServer>,
     input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Velocity, &GroundDetection), With<Player>>,
-    controls: Res<Controls>
+    mut controls: ResMut<Controls>
 ) {
     for (mut velocity, ground_detection) in &mut query {
-        let mut right = 0.;
-        let mut left = 0.;
-        
         if(controls.non_stop_move){
             if input.pressed(controls.right) {
-                right = 1.;
-                left = 0.;
+                controls.rx = 1.;
+                controls.lx = 0.;
             }
             if input.pressed(controls.left) {
-                left = 1.;
-                right = 0.;
+                controls.lx = 1.;
+                controls.rx = 0.;
             }
         }
         else{
-        right = if input.pressed(controls.right) { 1. } else { 0. };
-        left = if input.pressed(controls.left) { 1. } else { 0. };
+        controls.rx = if input.pressed(controls.right) { 1. } else { 0. };
+        controls.lx = if input.pressed(controls.left) { 1. } else { 0. };
         }
 
-        velocity.linvel.x = (right - left) * 200.;
+        velocity.linvel.x = (controls.rx - controls.lx) * 200.;
 
         // Jumping
         if input.just_pressed(controls.jump) && (ground_detection.on_ground) {
@@ -569,6 +568,7 @@ pub fn process_my_entity(
     }
 }
 pub fn camera_follow(
+    active_effects : Res<ActivePlayerEffects>,
     players: Query<&Transform, With<Player>>,
     mut camera_query: Query<
         (
@@ -585,6 +585,9 @@ pub fn camera_follow(
         if let (mut _orthographic_projection, mut camera_transform) = camera_query.single_mut(){
                 camera_transform.translation.x = pos.x;
                 camera_transform.translation.y = pos.y;
+                if(active_effects.rotating_world){
+                    camera_transform.rotate_z(0.0005);
+                }
         }
     }
 }
