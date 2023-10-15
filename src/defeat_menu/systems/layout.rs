@@ -61,7 +61,7 @@ pub fn build_defeat_menu(commands: &mut Commands, asset_server: Res<AssetServer>
                                     TextSection::new("Your time ran out...", 
                                     TextStyle {
                                         font: asset_server.load("upheavtt.ttf"),
-                                        font_size: 60.0,
+                                        font_size: 30.0,
                                         color: Color::WHITE.into(),
                                     })
                                 ],
