@@ -97,31 +97,34 @@ pub struct AnimationTimer {
     pub timer: Timer,
 }
 
-#[derive(Component, Clone)]
-pub struct Item(ItemType);
+#[derive(Component, Clone, Default, Debug)]
+pub struct Item;
 
-impl Default for Item {
-    fn default() -> Self {
-        Self(ItemType::ItemType0)
-    }
-}
 
 #[derive(Clone, Default, Bundle, LdtkEntity)]
 pub struct ItemBundle {
     pub item: Item,
-    #[sprite_bundle("cup.png")]
+    #[with(ItemType::from_field)]
+    pub item_type: ItemType,
+    #[sprite_bundle("hat.png")]
     pub sprite_bundle: SpriteBundle,
 }
 
 
 
-#[derive(Reflect, Clone)]
+#[derive(Reflect, Clone, Component, Debug)]
 pub enum ItemType {
     ItemType0,
     ItemType1,
     ItemType2,
     ItemType3,
     ItemType4,
+}
+
+impl Default for ItemType {
+    fn default() -> Self {
+        ItemType::ItemType0
+    }
 }
 
 #[derive(Debug, Error)]
@@ -143,6 +146,15 @@ impl FromStr for ItemType {
             "ItemType4" => Ok(ItemType4),
             _ => Err(NoItemType),
         }
+    }
+}
+
+
+impl ItemType {
+    pub fn from_field(entity_instance: &EntityInstance) -> ItemType {
+        return ItemType::from_str(entity_instance.get_enum_field("ItemType")
+            .expect("Missing enum field: ItemType!"))
+            .unwrap();
     }
 }
 
