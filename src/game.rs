@@ -3,6 +3,7 @@ use bevy_ecs_ldtk::LdtkLevel;
 
 use crate::platformer::SpawnLocation;
 use crate::platformer::systems::camera_follow;
+use crate::player::systems::{ActivePlayerEffects};
 use crate::systems::move_player_in_death;
 use crate::{systems::toggle_simulation, pausemenu::PauseMenuPlugin, platformer::systems::is_position_within_level, AppState, player::Player};
 use crate::{systems::toggle_death, platformer::systems::WorldCamera};
@@ -23,6 +24,10 @@ impl Plugin for GamePlugin {
         .add_plugins((
             PauseMenuPlugin,
         ))
+        .insert_resource(ActivePlayerEffects{
+            invert : false,
+            continous_move: false,
+        })
         .insert_resource(HasPlayerDied{died: false})
         .add_systems(Update, kill_conditions_player)
         .add_systems(Update, toggle_simulation)

@@ -1,8 +1,14 @@
 use bevy::prelude::*;
 
-use crate::platformer::components::{Item, WinItem, WinCon, ItemType};
+use crate::platformer::{components::{Item, WinItem, WinCon, ItemType}, systems::{invert_controls, Controls}};
 
 use super::{components::Inventory, Player};
+
+#[derive(Resource)]
+pub struct ActivePlayerEffects {
+    pub invert : bool,
+    pub continous_move: bool,
+}
 
 pub fn pick_up_item(
     input: Res<Input<KeyCode>>,
@@ -20,7 +26,6 @@ pub fn pick_up_item(
                     continue;
                 }
             
-
                 inventory.inventory.push(item.clone());
 
                 cmd.entity(e).despawn();
@@ -30,11 +35,16 @@ pub fn pick_up_item(
 }
 
 // @Mikal
-pub fn check_inv(inv: Res<Inventory>) {
+pub fn check_inv(inv: Res<Inventory>, mut active_effects : ResMut<ActivePlayerEffects>) {
     for i in inv.inventory.iter() {
-        print!("{:?}", i);
+        match i {
+            ItemType::ItemType0 => active_effects.invert = true,
+            ItemType::ItemType1 => active_effects.continous_move = true,
+            ItemType::ItemType2 => {},
+            ItemType::ItemType3 => {},
+            ItemType::ItemType4 => {},
+        }
     }
-    print!("\n");
 }
 
 

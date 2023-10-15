@@ -60,6 +60,7 @@ impl Plugin for PlatformerPlugin {
             right: KeyCode::D,
             left: KeyCode::A,
             jump: KeyCode::Space,
+            non_stop_move: false,
         })
         .add_systems(Update, movement)
         //.add_systems(Update, camera_fit_inside_current_level)
@@ -75,7 +76,9 @@ impl Plugin for PlatformerPlugin {
         .register_ldtk_entity::<ItemBundle>("Item")
         .register_ldtk_entity::<WinItemBundle>("WinCon")
         .register_ldtk_entity::<PlayerBundle>("Player")
-        .add_systems(Update, camera_follow);
+        .add_systems(Update, camera_follow)
+        .add_systems(Update, invert_controls)
+        .add_systems(Update, non_stop_movement);
         
         
     }
