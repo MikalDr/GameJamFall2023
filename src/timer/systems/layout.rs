@@ -6,7 +6,7 @@ use crate::{pausemenu::systems::layouts::ReturnButton, main_menu::components::Qu
 pub struct TimerHud {}
 
 #[derive(Component)]
-pub struct TimerText {}
+pub struct TimerText;
 
 pub fn spawn_timer(mut commands: Commands, asset_server: Res<AssetServer>){
     println!("Timer spawned");
@@ -82,7 +82,7 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
                             },
                             ..default()
                         }, 
-                        TimerText {})
+                        TimerText)
                     );
                 });
         })

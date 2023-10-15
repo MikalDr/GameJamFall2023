@@ -1,6 +1,8 @@
 use bevy::{prelude::*, render::camera};
 use bevy_ecs_ldtk::{prelude::*, ldtk::World};
 
+use crate::{timer::systems::layout::TimerText, utils::constants::MAX_TIME_SECONDS};
+
 use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
@@ -618,8 +620,32 @@ pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, t: Res<JumpScareEv
 }
 
 
-pub fn timer(t: Res<JumpScareTime>, time_text_query: Query<&Text, With<TimerText>>) {
-    println!("Jump Scare Timer: {:?}", t.0.elapsed_secs());
+pub fn timer(
+    t: Res<JumpScareTime>,
+    mut time_text_query: Query<&Text, With<TimerText>>,
+    asset_server: Res<AssetServer>
+) {
+
+    if let Ok(mut txt) = time_text_query.get_single_mut() {
+        let text = Text {
+            sections: vec![
+                TextSection::new(String::from(((t.0.elapsed_secs() - MAX_TIME_SECONDS) as i32).to_string())
+                , 
+                TextStyle {
+                    font: asset_server.load("upheavtt.ttf"),
+                    font_size: 45.0,
+                    color: Color::WHITE.into(),
+                })
+            ],
+            alignment: TextAlignment::Center,
+            ..default()
+        };
+
+        txt = &text;
+
+        println!("Jump Scare Timer: {:?}", txt.sections.get(0));
+    }
+
 }
 
 pub fn timer_1(t: Res<JumpScareEventTimer>, l: Res<HasLost>) {

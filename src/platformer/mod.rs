@@ -4,7 +4,7 @@ use bevy_ecs_ldtk::prelude::*;
 use bevy_rapier2d::prelude::*;
 
 
-use crate::{player::{PlayerBundle, systems::{pick_up_item, pick_up_win, check_inv}, components::{Inventory, JumpScareTime, JumpScareEventTimer}, Player}, game::GameState, AppState};
+use crate::{player::{PlayerBundle, systems::{pick_up_item, pick_up_win, check_inv}, components::{Inventory, JumpScareTime, JumpScareEventTimer}, Player}, game::GameState, AppState, utils::constants::MAX_TIME_SECONDS};
 
 use self::{systems::*, components::{ItemBundle, check_win_con, HasWon, WinCon, WinItemBundle, has_won}};
 
@@ -74,7 +74,7 @@ impl Plugin for PlatformerPlugin {
         //.add_systems(Update, update_level_selection)
         .add_systems(Update, ground_detection)
         .add_systems(Update, update_on_ground)
-        .insert_resource(JumpScareTime(Timer::from_seconds(3., TimerMode::Once)))
+        .insert_resource(JumpScareTime(Timer::from_seconds(MAX_TIME_SECONDS, TimerMode::Once)))
         .add_systems(Update, save_spawn_pos)
         .add_systems(Update, check_win_con)
         .add_systems(Update, pick_up_win)
