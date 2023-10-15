@@ -8,6 +8,7 @@ mod pausemenu;
 mod options_menu;
 mod death_screen;
 mod credits_menu;
+mod victory_menu;
 
 mod game;
 mod sound_controller;
@@ -25,6 +26,7 @@ use death_screen::DeathMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use victory_menu::{systems::layout::VictoryMenu, VictoryMenuPlugin};
 
 
 
@@ -49,6 +51,8 @@ fn main() {
                 MainMenuPlugin,
                 DeathMenuPlugin,
                 CreditsMenuPlugin,
+                VictoryMenuPlugin,
+                
                 SoundPlugin, //MainMenu
                 GamePlugin, //GameLogic
                 EffectPlugin,
