@@ -10,6 +10,7 @@ pub struct ActivePlayerEffects {
     pub continous_move: bool,
     pub rotating_world: bool,
     pub moon_gravity: bool,
+    pub rotate_gravity: bool
 }
 
 pub fn pick_up_item(
@@ -50,7 +51,7 @@ pub fn check_inv(inv: Res<Inventory>, mut active_effects : ResMut<ActivePlayerEf
             ItemType::ItemType1 => active_effects.continous_move = true,
             ItemType::ItemType2 => active_effects.rotating_world = true,
             ItemType::ItemType3 => active_effects.moon_gravity = true,
-            ItemType::ItemType4 => {},
+            ItemType::ItemType4 => active_effects.rotate_gravity = true,
         }
     }
 }
