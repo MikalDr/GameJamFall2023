@@ -21,11 +21,11 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
         (NodeBundle {
                 style: Style {
                     flex_direction: FlexDirection::Column,
-                    justify_content: JustifyContent::Center,
+                    justify_content: JustifyContent::Default,
                     align_items: AlignItems::Center,
                     row_gap: Val::Px(10.0), 
                     width: Val::Percent(100.0), 
-                    height: Val::Percent(100.0),
+                    height: Val::Percent(50.0),
                     ..default()
                 },
                 background_color: bevy::prelude::BackgroundColor(Color::Rgba{
@@ -50,7 +50,7 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
                         flex_direction: FlexDirection::Row,
                         justify_content: JustifyContent::Center,
                         align_items: AlignItems::Center,
-                        height: Val::Px(120.0),
+                        height: Val::Px(50.0),
                         width: Val::Px(300.0),
                         ..default()
                     },
@@ -70,7 +70,7 @@ pub fn build_timer(commands: &mut Commands, asset_server: Res<AssetServer>) -> E
                                     TextSection::new("20:00", 
                                     TextStyle {
                                         font: asset_server.load("upheavtt.ttf"),
-                                        font_size: 60.0,
+                                        font_size: 45.0,
                                         color: Color::WHITE.into(),
                                     })
                                 ],

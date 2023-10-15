@@ -590,7 +590,7 @@ pub fn camera_follow(
                 camera_transform.translation.x = pos.x;
                 camera_transform.translation.y = pos.y;
                 if(active_effects.rotating_world){
-                    camera_transform.rotate_z(0.0005);
+                    camera_transform.rotate_z(0.0003);
                 }
         }
     }

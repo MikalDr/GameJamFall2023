@@ -14,6 +14,7 @@ impl Plugin for TimerPlugin {
         app
         //.add_systems(OnEnter(AppState::Game), spawn_timer)
         .add_systems(OnEnter(AppState::Game), spawn_timer)
-        .add_systems(OnExit(GameState::Paused), despawn_timer);
+        .add_systems(OnExit(AppState::Game), despawn_timer)
+        .add_systems(OnExit(GameState::Running), despawn_timer);
     }
 }
