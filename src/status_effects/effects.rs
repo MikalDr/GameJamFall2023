@@ -21,18 +21,18 @@ pub enum StatusEffect {
 pub fn remove_effect() {}
 
 pub fn add_effect(
-    mut commands: Commands,
+    commands: Commands,
     key_input: Res<Input<KeyCode>>,
     mut effect_query: Query<&mut PlayerEffects, With<Player>>
 ) 
 {
-    if let Ok(player_effects) = effect_query.get_single() {
+    if let Ok(mut player_effects) = effect_query.get_single_mut() {
         
         println!("{:?}", player_effects.effects);
         if(key_input.just_pressed(KeyCode::T)){
             for mut effect in player_effects.effects.iter_mut() {
                 if effect == &StatusEffect::None{
-                    effect = StatusEffect::Effect1;
+                    effect = &mut StatusEffect::Effect1;
                 }
             }
 
