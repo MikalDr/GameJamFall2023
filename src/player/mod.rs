@@ -23,7 +23,6 @@ pub struct PlayerBundle {
     #[worldly]
     pub worldly: Worldly,
     pub ground_detection: GroundDetection,
-    pub inventory: Inventory,
 
     // The whole EntityInstance can be stored directly as an EntityInstance component
     #[from_entity_instance]
