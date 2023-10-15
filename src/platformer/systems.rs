@@ -491,26 +491,45 @@ pub fn start_game_time(mut commands: Commands){
 }
 
 
-pub fn debug_item(
-    entity_query: Query<(Entity, &Transform, &EntityInstance), (With<Item>, Added<EntityInstance>)>,
-    input: Res<Input<KeyCode>>,
-    mut cmd: Commands
+
+
+pub fn process_my_entity(
+    mut commands: Commands,
+    entity_query: Query<(Entity, &Transform, &EntityInstance), Added<EntityInstance>>,
+    mut texture_atlases: ResMut<Assets<TextureAtlas>>,
+    asset_server: Res<AssetServer>,
 ) {
+    for (entity, transform, entity_instance) in entity_query.iter() {
+        if entity_instance.identifier == *"Item" {
 
-    let mut ent: Option<Entity> = None;
+            println!("Entity: {:?}, at pos: {:?}, instance: {:?}", entity, transform.translation, entity_instance);
 
-    for (e, p, ei) in entity_query.iter() {
-        println!("{:?}, {:?}, {:?}", e, p.translation, ei);
-        ent = Some(e);
-    }
+            /*
+            let tileset = asset_server.load("cup.png");
 
-    if input.pressed(KeyCode::L) {
-        println!("\n\nUWU\n\n");
-        if let Some(e) = ent {
-            cmd.entity(e).despawn();
-            println!("DELETED-----------------------------------------------------------------------\n\n\n\n\n\n\n\n");
+            if let Some(tile) = &entity_instance.tile {
+                let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
+                    tileset.clone(),
+                    Vec2::new(tile.w as f32, tile.h as f32),
+                    1,
+                    1,
+                    None,
+                    None,
+                ));
+
+                let sprite = TextureAtlasSprite {
+                    index: (tile.y / tile.h) as usize * 12 + (tile.x / tile.w) as usize,
+                    ..Default::default()
+                };
+
+                commands.entity(entity).insert(SpriteSheetBundle {
+                    texture_atlas,
+                    sprite,
+                    transform: *transform,
+                    ..Default::default()
+                });
+            }
+             */
         }
-
     }
 }
-

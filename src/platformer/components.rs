@@ -1,8 +1,8 @@
 use bevy::prelude::*;
 use bevy_ecs_ldtk::{prelude::*, utils::ldtk_pixel_coords_to_translation_pivoted};
 
-use std::collections::HashSet;
-
+use std::{collections::HashSet, str::FromStr};
+use thiserror::Error;
 use bevy_rapier2d::prelude::*;
 
 #[derive(Clone, Debug, Default, Bundle, LdtkIntCell)]
@@ -95,7 +95,47 @@ pub struct AnimationTimer {
     pub timer: Timer,
 }
 
+#[derive(Component)]
+pub struct Item;
 
-pub struct Item {
-    
+#[derive(Component)]
+pub struct ItemBundle {
+    pub item: Item,
+}
+
+impl Default for ItemBundle {
+    fn default() -> Self {
+        Self { item: Item }
+    }
+}
+
+#[derive(Reflect)]
+pub enum ItemType {
+    ItemType0,
+    ItemType1,
+    ItemType2,
+    ItemType3,
+    ItemType4,
+}
+
+#[derive(Debug, Error)]
+#[error("the given equipment value doesn't exist")]
+pub struct NoItemType;
+
+
+impl FromStr for ItemType {
+    type Err = NoItemType;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use ItemType::*;
+
+        match s {
+            "ItemType0" => Ok(ItemType0),
+            "ItemType1" => Ok(ItemType1),
+            "ItemType2" => Ok(ItemType2),
+            "ItemType3" => Ok(ItemType3),
+            "ItemType4" => Ok(ItemType4),
+            _ => Err(NoItemType),
+        }
+    }
 }

@@ -37,6 +37,7 @@ impl Plugin for PlatformerPlugin {
     
         //Spawns something
         .add_systems(Startup, setup)
+        .add_systems(Update, process_my_entity)
         .add_systems(Update, spawn_wall_collision)
         .add_systems(Update, spawn_ground_sensor)
         //.add_systems(Startup, apply_player_sprite)
