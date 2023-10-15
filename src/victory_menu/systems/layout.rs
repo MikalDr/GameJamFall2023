@@ -6,7 +6,6 @@ use crate::{pausemenu::systems::layouts::ReturnButton, main_menu::components::Qu
 pub struct VictoryMenu {}
 
 pub fn spawn_victory_menu(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Entered Credits menu");
     let _victory_menu_entity = build_victory_menu(&mut commands, asset_server);
 }
 

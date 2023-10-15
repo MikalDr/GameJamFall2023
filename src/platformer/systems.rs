@@ -489,7 +489,6 @@ pub fn player_debug
     player_query: Query<&Transform, With<Player>>
 ) {
     if let Ok(trans) = player_query.get_single() {
-        println!("Player pos: {:?}", trans.translation);
     }
 }
 
@@ -510,19 +509,12 @@ pub fn is_position_within_level(
         if let Ok((camera, transform)) = camera_query.get_single() {
             let min: UVec2 = (camera.physical_viewport_rect()?).0;
             let max: UVec2 = (camera.physical_viewport_rect()?).1;
-            //let player_transform = camera.world_to_viewport(transform, player_translation)?;
-
-            //println!("{:?} {:?} {:?} ", min, max, player_transform);
-
-            /*if(player_transform.x < min.x as f32 || player_transform.x >= max.x as f32){
-                return Some(true)
-            }*/
+       
             if(player_translation.y < -350.0 || player_translation.y > max.y as f32){
                 return Some(true)
             }
             return Some(false)
         }
-        //return Some(orthographic_projection.area.contains(Vec2::new(player_translation.x, player_translation.y)));
     }
 
     return None;
@@ -543,8 +535,6 @@ pub fn process_my_entity(
 ) {
     for (entity, transform, entity_instance) in entity_query.iter() {
         if entity_instance.identifier == *"Item" {
-
-            println!("Entity: {:?}, at pos: {:?}, instance: {:?}", entity, transform.translation, entity_instance);
 
             let tileset = asset_server.load("cup.png");
 
@@ -615,7 +605,6 @@ pub fn jump_scare(
 pub fn has_lost(mut game_state: ResMut<NextState<GameState>>, t: Res<JumpScareEventTimer>) {
     if t.0.finished() {
         game_state.set(GameState::Lost);
-        println!("YOU LOST");
     }
 }
 
@@ -629,14 +618,11 @@ pub fn timer(
         
         txt.sections[0].value = format!("{}", String::from(((MAX_TIME_SECONDS - t.0.elapsed_secs()) as i32).to_string()));
 
-
-        println!("Jump Scare Timer: {:?}", txt.sections.get(0));
     }
 
 }
 
 pub fn timer_1(t: Res<JumpScareEventTimer>, l: Res<HasLost>) {
     if l.0 {
-        println!("Jump Scare Event Timer: {:?}", t.0.elapsed_secs());
     }
 }

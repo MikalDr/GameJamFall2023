@@ -174,7 +174,6 @@ pub fn check_win_con(wc: Res<WinCon>, mut win: ResMut<HasWon>) {
 pub fn has_won(win: Res<HasWon>, mut game_state_next: ResMut<NextState<GameState>>) {
     if win.0 {
         game_state_next.set(GameState::Victory);
-        println!("YOU WON!");
     }
 }
 

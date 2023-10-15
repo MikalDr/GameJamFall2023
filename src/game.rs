@@ -61,14 +61,12 @@ pub fn kill_conditions_player(
     level_query: Query<Entity, With<Handle<LdtkLevel>>>,
     has_died : ResMut<HasPlayerDied>,
 ) {
-    //println!("{:?} {:?}", game_state.get(), app_state.get());
     if game_state.get() == &GameState::Running && app_state.get() == &AppState::Game {
         
         // Kills player if outside screen
         if let Some(res) = is_position_within_level(camera_query, player_query) {
             if res {
                 toggle_death(cmd, game_state, app_state, level_query, has_died);
-                println!("you dieded");
             }
         }
     }   

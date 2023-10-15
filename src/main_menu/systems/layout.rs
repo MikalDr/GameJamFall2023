@@ -3,7 +3,6 @@ use bevy::prelude::*;
 use crate::{main_menu::components::{MainMenu, PlayButton, QuitButton, CreditsButton, OptionsButton, HTPButton}};
 
 pub fn spawn_main_menu(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Entered Main menu");
     let _main_menu_entity = build_main_menu(&mut commands, asset_server);
 }
 

@@ -9,7 +9,6 @@ pub struct DeathMenu{}
 pub struct RetryButton{}
 
 pub fn spawn_death_menu(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Entered death menu");
     let _death_menu_entity = build_death_menu(&mut commands, asset_server);
 }
 

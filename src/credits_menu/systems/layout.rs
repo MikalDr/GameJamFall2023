@@ -6,7 +6,6 @@ use crate::pausemenu::systems::layouts::ReturnButton;
 pub struct CreditsMenu {}
 
 pub fn spawn_credits_menu(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Entered Credits menu");
     let _credits_menu_entity = build_credits_menu(&mut commands, asset_server);
 }
 

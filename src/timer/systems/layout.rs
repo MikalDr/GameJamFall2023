@@ -9,7 +9,6 @@ pub struct TimerHud {}
 pub struct TimerText;
 
 pub fn spawn_timer(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Timer spawned");
     let _victory_menu_entity = build_timer(&mut commands, asset_server);
 }
 

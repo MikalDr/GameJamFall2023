@@ -6,7 +6,6 @@ use crate::pausemenu::systems::layouts::ReturnButton;
 pub struct HTPMenu {}
 
 pub fn spawn_htp_menu(mut commands: Commands, asset_server: Res<AssetServer>){
-    println!("Entered HowToPlay menu");
     let _htp_menu_entity = build_htp_menu(&mut commands, asset_server);
 }
 

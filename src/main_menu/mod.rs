@@ -26,5 +26,4 @@ impl Plugin for MainMenuPlugin {
 }
 
 pub fn main_menu() {
-    println!("Main menu started.");
 }
