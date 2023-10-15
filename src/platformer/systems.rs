@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use bevy_rapier2d::prelude::*;
 
-use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::{Player, components::Item}};
+use crate::{game::GameState, AppState, sound_controller::systems::play_jump_sound, player::Player};
 
 use super::components::*;
 
@@ -504,7 +504,6 @@ pub fn process_my_entity(
 
             println!("Entity: {:?}, at pos: {:?}, instance: {:?}", entity, transform.translation, entity_instance);
 
-            /*
             let tileset = asset_server.load("cup.png");
 
             if let Some(tile) = &entity_instance.tile {
@@ -529,7 +528,6 @@ pub fn process_my_entity(
                     ..Default::default()
                 });
             }
-             */
         }
     }
 }

@@ -51,7 +51,7 @@ impl From<IntGridCell> for SensorBundle {
         // ladder
         if int_grid_cell.value == 2 {
             SensorBundle {
-                collider: Collider::cuboid(8., 8.),
+                collider: Collider::cuboid(6., 6.),
                 sensor: Sensor,
                 rotation_constraints,
                 active_events: ActiveEvents::COLLISION_EVENTS,
@@ -95,21 +95,25 @@ pub struct AnimationTimer {
     pub timer: Timer,
 }
 
-#[derive(Component)]
-pub struct Item;
+#[derive(Component, Clone)]
+pub struct Item(ItemType);
 
-#[derive(Component)]
-pub struct ItemBundle {
-    pub item: Item,
-}
-
-impl Default for ItemBundle {
+impl Default for Item {
     fn default() -> Self {
-        Self { item: Item }
+        Self(ItemType::ItemType0)
     }
 }
 
-#[derive(Reflect)]
+#[derive(Clone, Default, Bundle, LdtkEntity)]
+pub struct ItemBundle {
+    pub item: Item,
+    #[sprite_bundle("cup.png")]
+    pub sprite_bundle: SpriteBundle,
+}
+
+
+
+#[derive(Reflect, Clone)]
 pub enum ItemType {
     ItemType0,
     ItemType1,
