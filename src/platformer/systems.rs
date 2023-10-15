@@ -57,6 +57,9 @@ pub fn invert_controls(mut controls: ResMut<Controls>)
     controls.right = KeyCode::A;
     controls.left = KeyCode::D;
 }
+pub fn non_stop_movement(){
+    
+}
 
 /// Spawns heron collisions for the walls of a level
 ///
