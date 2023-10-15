@@ -36,3 +36,9 @@ pub fn interact_with_retry_button(
         }
     }
 }
+
+pub fn quick_respawn(    mut app_state_next_state: ResMut<NextState<AppState>>,
+    mut game_state_next_state: ResMut<NextState<GameState>>) {
+    game_state_next_state.set(GameState::Running);
+    app_state_next_state.set(AppState::Game);
+}
