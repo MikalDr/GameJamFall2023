@@ -1,7 +1,7 @@
 use bevy::{prelude::*, app::AppExit};
 use bevy_ecs_ldtk::LdtkLevel;
 
-use crate::{game::GameState, AppState, sound_controller::systems::play_menu_click_sound, platformer::systems::restart_level};
+use crate::{game::{GameState, HasPlayerDied}, AppState, sound_controller::systems::play_menu_click_sound, platformer::systems::restart_level};
 
 use super::layouts::{ResumeButton, ReturnButton};
 
@@ -39,7 +39,7 @@ pub fn interact_with_return_button(
     mut button_query: Query<(&Interaction, &mut UiImage, &mut BackgroundColor), (Changed<Interaction>, With<ReturnButton>)>, asset_server: Res<AssetServer>,
     mut app_state_next_state: ResMut<NextState<AppState>>,
     mut game_state_next_state: ResMut<NextState<GameState>>,
-    level_query: Query<Entity, With<Handle<LdtkLevel>>>,
+    mut has_died: ResMut<HasPlayerDied>,
 ) {
     let normal_button : Handle<Image> = asset_server.load("mainmenu/button.png").into();
     let hover_button : Handle<Image> = asset_server.load("mainmenu/buttonhover.png").into();
@@ -51,6 +51,7 @@ pub fn interact_with_return_button(
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
                 play_menu_click_sound(&mut commands, asset_server);
+                has_died.died = true;
                 game_state_next_state.set(GameState::Paused);
                 app_state_next_state.set(AppState::MainMenu);
             }

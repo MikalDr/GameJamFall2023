@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_ecs_ldtk::LdtkLevel;
 
-use crate::{AppState, game::GameState, player::Player, platformer::systems::restart_level};
+use crate::{AppState, game::{GameState, HasPlayerDied}, player::Player, platformer::{systems::restart_level, SpawnLocation}};
 
 pub fn transistion_to_game_state(
     mut commands: Commands,
@@ -64,17 +64,22 @@ pub fn toggle_death(
     game_state: Res<State<GameState>>,
     app_state: Res<State<AppState>>,
     level_query: Query<Entity, With<Handle<LdtkLevel>>>,
-    player_query: Query<Entity, With<Player>>
+    mut hasDied: ResMut<HasPlayerDied>
 )
 {
     commands.insert_resource(NextState(Some(GameState::Dead)));
-    despawn_player(&mut commands, player_query);
-    restart_level(commands, level_query);
+    //move_player_in_death(&mut commands, player_query, spawn_loc);
+    //restart_level(commands, level_query);
+    hasDied.died = true;
     println!("You died");
 }
 
-pub fn despawn_player(commands: &mut Commands, player_query: Query<Entity, With<Player>>){
-    if let Ok(player_entity) = player_query.get_single(){
-        commands.entity(player_entity).despawn_recursive();
+pub fn move_player_in_death(mut hasDied: ResMut<HasPlayerDied>,mut player_query: Query<&mut Transform, With<Player>>, spawn_loc : Res<SpawnLocation>){
+    if let Ok(mut player_entity) = player_query.get_single_mut(){
+        println!("HasDied: {}, playerPos: {:?}, spawnPos {:?}", hasDied.died, player_entity.translation, spawn_loc.pos);
+        if(hasDied.died){
+        player_entity.translation = spawn_loc.pos;
+        hasDied.died = false;
+        }
     }
 }

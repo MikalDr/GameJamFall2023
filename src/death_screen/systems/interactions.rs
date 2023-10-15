@@ -24,7 +24,7 @@ pub fn interact_with_retry_button(
                 image.texture = normal_button;
                 *background_color = Color::BLUE.into();
                 play_menu_click_sound(&mut commands, asset_server);
-                game_state_next_state.set(GameState::Paused);
+                game_state_next_state.set(GameState::Running);
                 app_state_next_state.set(AppState::Game);
             }
             Interaction::Hovered => {
