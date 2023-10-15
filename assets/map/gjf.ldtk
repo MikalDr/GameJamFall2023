@@ -11,7 +11,7 @@
 	"iid": "e8e31440-6280-11ee-b380-67c3c787d075",
 	"jsonVersion": "1.4.1",
 	"appBuildId": 471015,
-	"nextUid": 19,
+	"nextUid": 20,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "Free",
@@ -241,6 +241,40 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "WinCon",
+			"uid": 19,
+			"tags": [],
+			"exportToToc": false,
+			"doc": null,
+			"width": 12,
+			"height": 12,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#EAD4AA",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -689,7 +723,24 @@
 					"seed": 1102176,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "WinCon",
+							"__grid": [24,17],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"__worldX": -360,
+							"__worldY": 324,
+							"iid": "92509d60-6280-11ee-a1d8-09ecdb32f141",
+							"width": 12,
+							"height": 12,
+							"defUid": 19,
+							"px": [288,204],
+							"fieldInstances": []
+						}
+					]
 				},
 				{
 					"__identifier": "IntGrid",
@@ -888,7 +939,24 @@
 					"seed": 6124741,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "WinCon",
+							"__grid": [5,17],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"__worldX": -468,
+							"__worldY": 0,
+							"iid": "91092940-6280-11ee-a1d8-d9fbad02c91b",
+							"width": 12,
+							"height": 12,
+							"defUid": 19,
+							"px": [60,204],
+							"fieldInstances": []
+						}
+					]
 				},
 				{
 					"__identifier": "IntGrid",
@@ -1039,7 +1107,24 @@
 					"seed": 7822820,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "WinCon",
+							"__grid": [6,7],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#EAD4AA",
+							"__worldX": 144,
+							"__worldY": 204,
+							"iid": "94026c10-6280-11ee-a1d8-83997c8de4ca",
+							"width": 12,
+							"height": 12,
+							"defUid": 19,
+							"px": [72,84],
+							"fieldInstances": []
+						}
+					]
 				},
 				{
 					"__identifier": "IntGrid",
