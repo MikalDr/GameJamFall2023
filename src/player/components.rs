@@ -1,11 +1,10 @@
 use bevy::prelude::*;
-use bevy_ecs_ldtk::prelude::*;
 
-use crate::platformer::components::Item;
+use crate::platformer::components::ItemType;
 
 
 #[derive(Resource)]
 pub struct Inventory {
-    pub inventory: Vec<Item>
+    pub inventory: Vec<ItemType>
 }
 

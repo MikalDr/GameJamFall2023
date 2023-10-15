@@ -1,12 +1,12 @@
 use bevy::prelude::*;
 
-use crate::platformer::components::{Item, WinItem, WinCon};
+use crate::platformer::components::{Item, WinItem, WinCon, ItemType};
 
 use super::{components::Inventory, Player};
 
 pub fn pick_up_item(
     input: Res<Input<KeyCode>>,
-    item_query: Query<(Entity, &GlobalTransform, &Item)>,
+    item_query: Query<(Entity, &GlobalTransform, &ItemType)>,
     player_query: Query<&GlobalTransform, With<Player>>,
     mut inventory: ResMut<Inventory>,
     mut cmd: Commands
@@ -29,6 +29,13 @@ pub fn pick_up_item(
     }
 }
 
+
+pub fn check_inv(inv: Res<Inventory>) {
+    for i in inv.inventory.iter() {
+        print!("{:?}", i);
+    }
+    print!("\n");
+}
 
 
 pub fn pick_up_win(

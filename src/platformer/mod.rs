@@ -4,7 +4,7 @@ use bevy_ecs_ldtk::prelude::*;
 use bevy_rapier2d::prelude::*;
 
 
-use crate::player::{PlayerBundle, systems::{pick_up_item, pick_up_win}, components::Inventory, Player};
+use crate::{player::{PlayerBundle, systems::{pick_up_item, pick_up_win, check_inv}, components::Inventory, Player}, game::GameState};
 
 use self::{systems::*, components::{ItemBundle, check_win_con, HasWon, WinCon, WinItemBundle, has_won}};
 
@@ -50,6 +50,7 @@ impl Plugin for PlatformerPlugin {
         .add_systems(Startup, setup)
         .add_systems(Update, process_my_entity)
         .add_systems(Update, spawn_wall_collision)
+        .add_systems(Update, check_inv)
         .add_systems(Update, spawn_ground_sensor)
         .add_systems(Update, pick_up_item)
         //.add_systems(Startup, apply_player_sprite)
