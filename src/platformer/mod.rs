@@ -44,7 +44,7 @@ impl Plugin for PlatformerPlugin {
             ..Default::default()
         })
         .insert_resource(HasWon(false)) // Wheter we have won or not
-        .insert_resource(WinCon(0, 3))  // How many win-con collectables there are.
+        .insert_resource(WinCon(0, 7))  // How many win-con collectables there are.
         .insert_resource(Inventory { inventory: Vec::new() })
         //Spawns something
         .add_systems(Startup, setup)
