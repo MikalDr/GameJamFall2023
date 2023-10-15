@@ -153,5 +153,23 @@ pub struct WinCon(pub usize, pub usize);
 
 
 pub fn check_win_con(wc: Res<WinCon>, mut win: ResMut<HasWon>) {
-    win.0 =  wc.0 <= wc.1;
+    win.0 = wc.0 >= wc.1;
+}
+
+/// TODO: Add win logic here, @Mikal
+pub fn has_won(win: Res<HasWon>) {
+    if win.0 {
+        println!("YOU WON!");
+    }
+}
+
+#[derive(Component, Clone, Default)]
+pub struct WinItem;
+
+
+#[derive(Clone, Default, Bundle, LdtkEntity)]
+pub struct WinItemBundle {
+    pub item: WinItem,
+    #[sprite_bundle("trophy.png")]
+    pub sprite_bundle: SpriteBundle,
 }

@@ -4,9 +4,9 @@ use bevy_ecs_ldtk::prelude::*;
 use bevy_rapier2d::prelude::*;
 
 
-use crate::player::{PlayerBundle, systems::pick_up_item, components::Inventory, Player};
+use crate::player::{PlayerBundle, systems::{pick_up_item, pick_up_win}, components::Inventory, Player};
 
-use self::{systems::*, components::{ItemBundle, check_win_con, HasWon, WinCon}};
+use self::{systems::*, components::{ItemBundle, check_win_con, HasWon, WinCon, WinItemBundle, has_won}};
 
 
 pub mod components;
@@ -62,9 +62,12 @@ impl Plugin for PlatformerPlugin {
         .add_systems(Update, update_on_ground)
         .add_systems(Update, save_spawn_pos)
         .add_systems(Update, check_win_con)
+        .add_systems(Update, pick_up_win)
+        .add_systems(Update, has_won)
         .register_ldtk_int_cell::<components::WallBundle>(1)
         .register_ldtk_int_cell::<components::WallBundle>(3)
         .register_ldtk_entity::<ItemBundle>("Item")
+        .register_ldtk_entity::<WinItemBundle>("WinCon")
         .register_ldtk_entity::<PlayerBundle>("Player");
         
         
