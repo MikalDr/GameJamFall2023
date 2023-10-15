@@ -27,7 +27,6 @@ use main_menu::{MainMenuPlugin};
 use death_screen::DeathMenuPlugin;
 use platformer::PlatformerPlugin;
 use game::GamePlugin;
-use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use timer::TimerPlugin;
 use victory_menu::{systems::layout::VictoryMenu, VictoryMenuPlugin};
 
