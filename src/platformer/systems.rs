@@ -27,7 +27,9 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 pub struct Controls {
     pub right: KeyCode,
     pub left: KeyCode,
-    pub jump: KeyCode
+    pub jump: KeyCode,
+
+    pub non_stop_move: bool,
 }
 
 // This is not good
@@ -39,8 +41,23 @@ pub fn movement(
     controls: Res<Controls>
 ) {
     for (mut velocity, ground_detection) in &mut query {
-        let right = if input.pressed(controls.right) { 1. } else { 0. };
-        let left = if input.pressed(controls.left) { 1. } else { 0. };
+        let mut right = 0.;
+        let mut left = 0.;
+        
+        if(controls.non_stop_move){
+            if input.pressed(controls.right) {
+                right = 1.;
+                left = 0.;
+            }
+            if input.pressed(controls.left) {
+                left = 1.;
+                right = 0.;
+            }
+        }
+        else{
+        right = if input.pressed(controls.right) { 1. } else { 0. };
+        left = if input.pressed(controls.left) { 1. } else { 0. };
+        }
 
         velocity.linvel.x = (right - left) * 200.;
 
@@ -57,8 +74,8 @@ pub fn invert_controls(mut controls: ResMut<Controls>)
     controls.right = KeyCode::A;
     controls.left = KeyCode::D;
 }
-pub fn non_stop_movement(){
-    
+pub fn non_stop_movement(mut controls: ResMut<Controls>){
+    controls.non_stop_move = true;
 }
 
 /// Spawns heron collisions for the walls of a level
